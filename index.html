@@ -7,6 +7,24 @@
 
     <link rel="stylesheet" href="index moderno/css/styles.css">
 
+    <style>
+        /* LOGO CENTRADO */
+        .logo-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* opacity: 0.11; */
+            /* opacity: 0.08; */
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-center img {
+            width: 250px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -19,15 +37,17 @@
         <button onclick="abrirModulo(this,'Ventas','index moderno/ventas.html')">Ventas</button>
     </div>
 
-    <div class="workspace" id="workspace"></div>
+    <div class="workspace" id="workspace">
+        <div class="logo-center" id="logoCenter">
+            <img src="logo.jpg" alt="Logo Empresa">
+        </div>
+
+    </div>
+
+
     <div class="taskbar" id="taskbar"></div>
 
     <script src="index moderno/js/index.js"></script>
-<script>
-
-    
-
-</script>
 
 </body>
 
