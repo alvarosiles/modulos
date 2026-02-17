@@ -1,275 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Sistema Demo</title>
+    <meta charset="UTF-8">
+    <title>ERP PRO</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#dcdcdc;
-    height:100vh;
-    overflow:hidden;
-}
+    <link rel="stylesheet" href="index moderno/css/styles.css">
 
-/* ===== MENÚ SUPERIOR ===== */
-.topbar{
-    background:#2e4a73;
-    color:white;
-    padding:8px 15px;
-    font-weight:bold;
-}
-
-.submenu{
-    background:#cfd6df;
-    padding:5px 10px;
-    display:flex;
-    gap:20px;
-    font-size:14px;
-}
-
-.submenu span{
-    cursor:pointer;
-}
-
-.toolbar{
-    background:#e6e6e6;
-    padding:10px;
-    display:flex;
-    gap:10px;
-}
-
-.toolbar button{
-    padding:8px 15px;
-    cursor:pointer;
-    border:1px solid #999;
-    background:white;
-}
-
-.toolbar button.active{
-    background:#2e4a73;
-    color:white;
-}
-
-/* ===== ÁREA DE TRABAJO ===== */
-.workspace{
-    position:relative;
-    height:calc(100vh - 120px);
-    background:#f2f2f2;
-    overflow:hidden;
-}
-
-/* ===== VENTANA ===== */
-.ventana{
-    position:absolute;
-    width:500px;
-    height:350px;
-    background:white;
-    border:1px solid #444;
-    box-shadow:0 4px 15px rgba(0,0,0,0.3);
-    display:none;
-    flex-direction:column;
-}
-
-.ventana-header{
-    background:#2e4a73;
-    color:white;
-    padding:6px 10px;
-    display:flex;
-    justify-content:space-between;
-    cursor:move;
-    user-select:none;
-}
-
-.ventana-controls span{
-    margin-left:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.ventana-body{
-    flex:1;
-    padding:10px;
-    overflow:auto;
-}
-
-.ventana-footer{
-    height:28px;
-    background:#d9d9d9;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 10px;
-    font-size:13px;
-    border-top:1px solid #bbb;
-}
-
-/* minimizada */
-.minimizada{
-    height:35px !important;
-}
-
-.maximizada{
-    top:0 !important;
-    left:0 !important;
-    width:100% !important;
-    height:100% !important;
-}
-
-</style>
 </head>
+
 <body>
 
-<div class="topbar">▼ Principal</div>
+    <div class="top-bar">ERP PRO</div>
 
-<div class="submenu">
-    <span>Archivos</span>
-    <span>Parámetros</span>
-    <span>Comercial</span>
-    <span>Inventarios</span>
-    <span>Ventanas</span>
-    <span>Acerca de...</span>
-</div>
-
-<div class="toolbar">
-    <button onclick="abrirVentana('Ventas', this)">Ventas</button>
-    <button onclick="abrirVentana('Compras', this)">Compras</button>
-    <button onclick="abrirVentana('Inventario', this)">Inventario</button>
-</div>
-
-<div class="workspace">
-
-    <div class="ventana" id="miVentana">
-
-        <div class="ventana-header" id="ventanaHeader">
-            <span id="tituloVentana">Ventas</span>
-            <div class="ventana-controls">
-                <span onclick="minimizar()">🗕</span>
-                <span onclick="maximizar()">🗖</span>
-                <span onclick="cerrar()">✖</span>
-            </div>
-        </div>
-
-        <div class="ventana-body" id="contenidoVentana">
-            Contenido
-        </div>
-
-        <div class="ventana-footer">
-            <div id="fechaActual"></div>
-            <div id="horaActual"></div>
-        </div>
-
+    <div class="submenu">
+        <button onclick="abrirModulo(this,'Inventario','index moderno/inventario.html')">Inventario</button>
+        <button onclick="abrirModulo(this,'Compras','index moderno/compras.html')">Compras</button>
+        <button onclick="abrirModulo(this,'Ventas','index moderno/ventas.html')">Ventas</button>
     </div>
 
-</div>
+    <div class="workspace" id="workspace"></div>
+    <div class="taskbar" id="taskbar"></div>
 
+    <script src="index moderno/js/index.js"></script>
 <script>
 
-const ventana = document.getElementById("miVentana");
-const workspace = document.querySelector(".workspace");
-let isMaximized = false;
-let offsetX, offsetY, isDragging=false;
-
-/* ===== ABRIR ===== */
-function abrirVentana(titulo, boton){
-
-    document.querySelectorAll(".toolbar button").forEach(b => b.classList.remove("active"));
-    boton.classList.add("active");
-
-    ventana.style.display="flex";
-    ventana.classList.remove("minimizada");
-
-    ventana.style.width="500px";
-    ventana.style.height="350px";
-    ventana.style.top="50px";
-    ventana.style.left="50px";
-
-    document.getElementById("tituloVentana").innerText=titulo;
-    document.getElementById("contenidoVentana").innerHTML="Vista de "+titulo;
-
-    isMaximized=false;
-}
-
-/* ===== CERRAR ===== */
-function cerrar(){
-    ventana.style.display="none";
-    document.querySelectorAll(".toolbar button").forEach(b => b.classList.remove("active"));
-}
-
-/* ===== MINIMIZAR ===== */
-function minimizar(){
-    ventana.classList.toggle("minimizada");
-}
-
-/* ===== MAXIMIZAR ===== */
-function maximizar(){
-
-    if(!isMaximized){
-        ventana.classList.add("maximizada");
-        isMaximized=true;
-    }else{
-        ventana.classList.remove("maximizada");
-        ventana.style.width="500px";
-        ventana.style.height="350px";
-        ventana.style.top="50px";
-        ventana.style.left="50px";
-        isMaximized=false;
-    }
-}
-
-/* ===== DOBLE CLIC HEADER ===== */
-document.getElementById("ventanaHeader").ondblclick = maximizar;
-
-/* ===== ESC CERRAR ===== */
-document.addEventListener("keydown", function(e){
-    if(e.key==="Escape"){
-        cerrar();
-    }
-});
-
-/* ===== DRAG ===== */
-document.getElementById("ventanaHeader").addEventListener("mousedown", function(e){
-    if(isMaximized) return;
-
-    isDragging=true;
-    offsetX = e.clientX - ventana.offsetLeft;
-    offsetY = e.clientY - ventana.offsetTop;
-});
-
-document.addEventListener("mousemove", function(e){
-    if(!isDragging) return;
-
-    let x = e.clientX - offsetX;
-    let y = e.clientY - offsetY;
-
-    // evitar salir del workspace
-    x = Math.max(0, Math.min(x, workspace.clientWidth - ventana.offsetWidth));
-    y = Math.max(0, Math.min(y, workspace.clientHeight - ventana.offsetHeight));
-
-    ventana.style.left = x + "px";
-    ventana.style.top = y + "px";
-});
-
-document.addEventListener("mouseup", function(){
-    isDragging=false;
-});
-
-/* ===== RELOJ ===== */
-function actualizarReloj(){
-    const ahora = new Date();
-
-    document.getElementById("fechaActual").innerText =
-        ahora.toLocaleDateString("es-ES");
-
-    document.getElementById("horaActual").innerText =
-        ahora.toLocaleTimeString("es-ES");
-}
-
-setInterval(actualizarReloj,1000);
-actualizarReloj();
+    
 
 </script>
 
 </body>
+
 </html>

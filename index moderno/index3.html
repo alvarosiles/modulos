@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERP</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#f4f6f9;
+  overflow:hidden;
+}
+
+/* MENU */
+.menu{
+  width:220px;
+  height:100vh;
+  background:#1f2937;
+  color:white;
+  position:fixed;
+  left:0;
+  top:0;
+  padding-top:20px;
+}
+
+.menu h2{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.menu button{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:none;
+  color:white;
+  cursor:pointer;
+  text-align:left;
+}
+
+.menu button:hover{
+  background:#374151;
+}
+
+/* AREA */
+#desktop{
+  margin-left:220px;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+/* VENTANA */
+.window{
+  position:absolute;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.titlebar{
+  height:40px;
+  background:#f3f3f3;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 10px;
+  cursor:move;
+  user-select:none;
+}
+
+.controls span{
+  margin-left:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.controls span:hover{
+  color:red;
+}
+
+.content{
+  flex:1;
+  padding:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu">
+  <h2>ERP</h2>
+  <button onclick="openWindow('venta','Venta')">Venta</button>
+  <button onclick="openWindow('compra','Compra')">Compra</button>
+  <button onclick="openWindow('inventario','Inventario')">Inventario</button>
+</div>
+
+<div id="desktop"></div>
+
+<script>
+
+let zIndex = 100;
+let offset = 0;
+const opened = {};
+
+function openWindow(id,title){
+
+  if(opened[id]) return; // evita abrir doble
+
+  const desktop = document.getElementById("desktop");
+
+  const win = document.createElement("div");
+  win.className="window";
+  win.style.width="500px";
+  win.style.height="350px";
+  win.style.zIndex=++zIndex;
+
+  const topPos = window.innerHeight/2 -175 + offset;
+  const leftPos = (window.innerWidth-220)/2 -250 + offset;
+
+  win.style.top = topPos+"px";
+  win.style.left = leftPos+"px";
+
+  offset+=30;
+
+  win.innerHTML=`
+    <div class="titlebar">
+      <div>${title}</div>
+      <div class="controls">
+        <span onclick="minimize('${id}')">—</span>
+        <span onclick="maximize('${id}')">▢</span>
+        <span onclick="closeWindow('${id}')">✕</span>
+      </div>
+    </div>
+    <div class="content">
+      Contenido de ${title}
+    </div>
+  `;
+
+  desktop.appendChild(win);
+  opened[id]=win;
+
+  makeDraggable(win);
+}
+
+function closeWindow(id){
+  opened[id].remove();
+  delete opened[id];
+}
+
+function minimize(id){
+  opened[id].style.display="none";
+}
+
+function maximize(id){
+  const win = opened[id];
+
+  if(!win.classList.contains("max")){
+    win.dataset.prevTop = win.style.top;
+    win.dataset.prevLeft = win.style.left;
+    win.dataset.prevWidth = win.style.width;
+    win.dataset.prevHeight = win.style.height;
+
+    win.style.top="0";
+    win.style.left="0";
+    win.style.width="100%";
+    win.style.height="100%";
+    win.classList.add("max");
+  }else{
+    win.style.top=win.dataset.prevTop;
+    win.style.left=win.dataset.prevLeft;
+    win.style.width=win.dataset.prevWidth;
+    win.style.height=win.dataset.prevHeight;
+    win.classList.remove("max");
+  }
+}
+
+function makeDraggable(win){
+
+  const bar = win.querySelector(".titlebar");
+  let isDragging=false, offsetX=0, offsetY=0;
+
+  bar.onmousedown = e=>{
+    if(win.classList.contains("max")) return;
+
+    isDragging=true;
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+    document.body.style.userSelect="none";
+  };
+
+  document.onmousemove = e=>{
+    if(!isDragging) return;
+
+    let left = e.clientX - offsetX;
+    let top = e.clientY - offsetY;
+
+    left=Math.max(0,Math.min(left,window.innerWidth-220-win.offsetWidth));
+    top=Math.max(0,Math.min(top,window.innerHeight-win.offsetHeight));
+
+    win.style.left=left+"px";
+    win.style.top=top+"px";
+  };
+
+  document.onmouseup = ()=>{
+    isDragging=false;
+    document.body.style.userSelect="auto";
+  };
+}
+
+/* ESC cierra última ventana */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    const keys = Object.keys(opened);
+    if(keys.length>0){
+      closeWindow(keys[keys.length-1]);
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>
