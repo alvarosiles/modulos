@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Inventario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* HEADER */
+        .header {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .header-btn {
+            width: 24px;
+            height: 24px;
+            background-color: #4a6fa5;
+            border: 1px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* NAVEGACIÓN PRINCIPAL */
+        .nav-main {
+            background-color: #c0c0c0;
+            display: flex;
+            border-bottom: 1px solid #999;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-tab {
+            padding: 8px 15px;
+            border-right: 1px solid #999;
+            cursor: pointer;
+            font-size: 13px;
+            background-color: #c0c0c0;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .nav-tab:hover {
+            background-color: #dfdfdf;
+        }
+
+        .nav-tab.active {
+            background-color: #4a90e2;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* BARRA DE HERRAMIENTAS */
+        .toolbar {
+            background-color: #c0c0c0;
+            display: flex;
+            padding: 8px;
+            gap: 2px;
+            border-bottom: 2px solid #999;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 5px 8px;
+            background-color: #e0e0e0;
+            border: 1px solid #999;
+            cursor: pointer;
+            font-size: 11px;
+            border-radius: 2px;
+            transition: background-color 0.2s;
+            text-align: center;
+            width: 60px;
+        }
+
+        .tool-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .tool-icon {
+            font-size: 20px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 120px);
+            background-color: #c0c0c0;
+            padding: 8px;
+            gap: 8px;
+        }
+
+        /* PANEL DE CONTROL IZQUIERDO */
+        .left-panel {
+            width: 200px;
+            background-color: #e8e8e8;
+            border: 2px solid #999;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-title {
+            background-color: #4a90e2;
+            color: white;
+            padding: 6px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid #999;
+        }
+
+        .panel-section {
+            padding: 8px;
+            border-bottom: 1px solid #999;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #999;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .warehouse-list {
+            list-style: none;
+            padding: 4px;
+        }
+
+        .warehouse-item {
+            padding: 4px 6px;
+            border: 1px solid #999;
+            margin-bottom: 2px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 11px;
+            transition: background-color 0.2s;
+        }
+
+        .warehouse-item:hover {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .warehouse-item.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .empty-message {
+            font-size: 11px;
+            color: #999;
+            padding: 8px;
+            text-align: center;
+        }
+
+        /* PANEL DERECHO */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #e8e8e8;
+            border: 2px solid #999;
+        }
+
+        /* HEADER DEL REPORTE */
+        .report-header {
+            background-color: #daa520;
+            padding: 12px;
+            border-bottom: 2px solid #999;
+        }
+
+        .report-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .report-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-control {
+            padding: 4px 10px;
+            background-color: #e0e0e0;
+            border: 1px solid #999;
+            cursor: pointer;
+            font-size: 11px;
+            border-radius: 2px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-control:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-check {
+            background-color: #90ee90;
+            font-weight: bold;
+        }
+
+        /* EMPRESA INFO */
+        .empresa-section {
+            padding: 8px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #999;
+            display: flex;
+            gap: 12px;
+        }
+
+        .empresa-field {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .empresa-label {
+            font-size: 11px;
+            font-weight: bold;
+            width: 80px;
+        }
+
+        .empresa-input {
+            padding: 4px;
+            border: 1px solid #999;
+            font-size: 11px;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        /* TABLA Y TABS */
+        .table-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            margin: 8px;
+            border: 1px solid #999;
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            background-color: #c0c0c0;
+            border-bottom: 1px solid #999;
+            align-items: center;
+            overflow-x: auto;
+            padding: 0 4px;
+        }
+
+        .tab-btn {
+            padding: 6px 12px;
+            background-color: #c0c0c0;
+            border: 1px solid #999;
+            border-bottom: none;
+            cursor: pointer;
+            font-size: 11px;
+            margin: 2px 2px 0 0;
+            border-radius: 3px 3px 0 0;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background-color: #dfdfdf;
+        }
+
+        .tab-btn.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+            font-weight: bold;
+        }
+
+        .search-box {
+            padding: 6px;
+            background-color: #e0f6ff;
+            border-bottom: 1px solid #999;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 4px 6px;
+            border: 1px solid #999;
+            font-size: 11px;
+        }
+
+        /* TABLA */
+        .data-table {
+            flex: 1;
+            overflow: auto;
+            background-color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        table thead {
+            background-color: #4a90e2;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        table th {
+            padding: 6px 4px;
+            border: 1px solid #999;
+            text-align: left;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        table td {
+            padding: 6px 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+
+        table tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .no-data {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* FOOTER CONTROLES */
+        .footer-controls {
+            background-color: #000;
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            border-top: 2px solid #999;
+        }
+
+        .btn-footer {
+            padding: 8px 20px;
+            background-color: #c0c0c0;
+            border: 2px solid #999;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 2px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #333;
+        }
+
+        .btn-footer:hover {
+            background-color: #dfdfdf;
+        }
+
+        .btn-footer:active {
+            border-style: inset;
+        }
+
+        /* PAGINACIÓN */
+        .pagination {
+            padding: 4px 8px;
+            background-color: #e0e0e0;
+            border-top: 1px solid #999;
+            display: flex;
+            gap: 2px;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .page-input {
+            width: 30px;
+            padding: 2px;
+            border: 1px solid #999;
+            font-size: 10px;
+        }
+
+        .page-btn {
+            padding: 2px 4px;
+            background-color: #e0e0e0;
+            border: 1px solid #999;
+            cursor: pointer;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-title">▼ Principal</div>
+        <div class="header-buttons">
+            <button class="header-btn">_</button>
+            <button class="header-btn">□</button>
+            <button class="header-btn">✕</button>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <div class="nav-main">
+        <button class="nav-tab active">Archivos</button>
+        <button class="nav-tab">Parámetros</button>
+        <button class="nav-tab">Comercial</button>
+        <button class="nav-tab">Inventarios</button>
+        <button class="nav-tab">Ventanas</button>
+        <button class="nav-tab">Acerca de ...</button>
+    </div>
+
+    <!-- BARRA DE HERRAMIENTAS -->
+    <div class="toolbar">
+        <button class="tool-btn">
+            <div class="tool-icon">📦</div>
+            <div>Seguimiento</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">🛒</div>
+            <div>Compras</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">📄</div>
+            <div>Proforma</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">✓</div>
+            <div>Ventas</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">💰</div>
+            <div>Cajero</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">📥</div>
+            <div>Caja</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">♻</div>
+            <div>T/C</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">📊</div>
+            <div>Inventario</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">✓</div>
+            <div>Valorado</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">📋</div>
+            <div>Reportes</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">🔍</div>
+            <div>Buscar</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">🏷</div>
+            <div>Etiqueta</div>
+        </button>
+        <button class="tool-btn">
+            <div class="tool-icon">↗</div>
+            <div>Salir</div>
+        </button>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-container">
+        <!-- PANEL IZQUIERDO -->
+        <div class="left-panel">
+            <div class="panel-title">LISTA DE ALMACENES</div>
+            <div class="panel-section">
+                <div class="section-label">Nombre</div>
+                <ul class="warehouse-list" id="warehouseList">
+                    <li class="empty-message">&lt;No data to display&gt;</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PANEL DERECHO -->
+        <div class="right-panel">
+            <!-- HEADER REPORTE -->
+            <div class="report-header">
+                <div class="report-title">REPORTE DE INVENTARIO</div>
+                <div class="report-controls">
+                    <button class="btn-control btn-check">✓ Actualizar</button>
+                    <button class="btn-control">📊 Analítico</button>
+                </div>
+            </div>
+
+            <!-- EMPRESA INFO -->
+            <div class="empresa-section">
+                <div class="empresa-field">
+                    <span class="empresa-label">IdEmpresa</span>
+                    <input type="text" class="empresa-input" placeholder="">
+                </div>
+                <div class="empresa-field">
+                    <span class="empresa-label">Nombre de la Empresa</span>
+                    <input type="text" class="empresa-input" placeholder="">
+                </div>
+            </div>
+
+            <!-- TABLA CONTAINER -->
+            <div class="table-container">
+                <!-- TABS -->
+                <div class="tabs-header">
+                    <button class="tab-btn active">Inventario</button>
+                    <button class="tab-btn">Kardex</button>
+                    <button class="tab-btn">Buscar</button>
+                    <button class="tab-btn">Muestras</button>
+                    <button class="tab-btn">Entregas</button>
+                    <button class="tab-btn">Grupos</button>
+                    <button class="tab-btn">Devoluciones</button>
+                    <button class="tab-btn">Vencimiento</button>
+                    <button class="tab-btn">Disponibilidad</button>
+                </div>
+
+                <!-- SEARCH BOX -->
+                <div class="search-box">
+                    <span>Buscar:</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="">
+                </div>
+
+                <!-- TABLA DE DATOS -->
+                <div class="data-table">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>IdProducto</th>
+                                <th>Producto</th>
+                                <th>IdGrupo</th>
+                                <th>Disponible</th>
+                                <th>Vendidos</th>
+                                <th>Comprado</th>
+                                <th>Vencimiento</th>
+                                <th>Valor Unit.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8" class="no-data">&lt;No data to display&gt;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGINACIÓN -->
+                <div class="pagination">
+                    <input type="text" class="page-input" value="0">
+                    <button class="page-btn">|&lt;</button>
+                    <button class="page-btn">&lt;&lt;</button>
+                    <button class="page-btn">&lt;</button>
+                    <button class="page-btn">&gt;</button>
+                    <button class="page-btn">&gt;&gt;</button>
+                    <button class="page-btn">&gt;|</button>
+                    <button class="page-btn">✓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER BUTTONS -->
+    <div class="footer-controls">
+        <button class="btn-footer">📝 Cod Barra</button>
+        <button class="btn-footer">📋 Muestra</button>
+        <button class="btn-footer">📊 Por Producto</button>
+        <button class="btn-footer">🖨 Imprimir</button>
+    </div>
+
+    <script>
+        // Sample data
+        const sampleWarehouses = ['Almacén Central', 'Bodega 1', 'Bodega 2', 'Sucursal A'];
+        const sampleProducts = [
+            { id: 'P001', name: 'Producto A', grupo: 'G01', disponible: 100, vendidos: 25, comprado: 500, vencimiento: '2026-12-31', valor: '150.00' },
+            { id: 'P002', name: 'Producto B', grupo: 'G02', disponible: 250, vendidos: 75, comprado: 800, vencimiento: '2027-06-15', valor: '200.00' },
+            { id: 'P003', name: 'Producto C', grupo: 'G01', disponible: 50, vendidos: 10, comprado: 200, vencimiento: '2026-08-20', valor: '120.00' },
+            { id: 'P004', name: 'Producto D', grupo: 'G03', disponible: 300, vendidos: 150, comprado: 1000, vencimiento: '2027-01-10', valor: '180.00' },
+        ];
+
+        // Load warehouses
+        function loadWarehouses() {
+            const list = document.getElementById('warehouseList');
+            list.innerHTML = '';
+            sampleWarehouses.forEach((warehouse, index) => {
+                const li = document.createElement('li');
+                li.className = 'warehouse-item' + (index === 0 ? ' active' : '');
+                li.textContent = warehouse;
+                li.onclick = () => selectWarehouse(index);
+                list.appendChild(li);
+            });
+        }
+
+        // Select warehouse
+        function selectWarehouse(index) {
+            document.querySelectorAll('.warehouse-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        // Load products table
+        function loadProducts(filter = '') {
+            const tbody = document.querySelector('table tbody');
+            const filtered = sampleProducts.filter(p => 
+                p.name.toLowerCase().includes(filter.toLowerCase()) ||
+                p.id.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="no-data">&lt;No data to display&gt;</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td>${p.id}</td>
+                    <td>${p.name}</td>
+                    <td>${p.grupo}</td>
+                    <td>${p.disponible}</td>
+                    <td>${p.vendidos}</td>
+                    <td>${p.comprado}</td>
+                    <td>${p.vencimiento}</td>
+                    <td>$${p.valor}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            loadProducts(e.target.value);
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Button actions
+        document.querySelectorAll('.btn-footer').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert(`Presionaste: ${this.textContent}`);
+            });
+        });
+
+        // Initialize
+        loadWarehouses();
+        loadProducts();
+    </script>
+</body>
+</html>
