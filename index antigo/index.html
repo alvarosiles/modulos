@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Inventario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="logo">📦 Sistema de Inventario</div>
+        <div class="user-info">Admin</div>
+    </header>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Almacenes</h3>
+            <ul id="warehouseList"></ul>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+
+            <div class="main-header">
+                <h2>Reporte de Inventario</h2>
+
+                <div class="controls">
+                    <input type="text" id="searchInput" placeholder="Buscar producto...">
+                    <button id="refreshBtn">Actualizar</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Grupo</th>
+                            <th>Disponible</th>
+                            <th>Vendidos</th>
+                            <th>Comprado</th>
+                            <th>Vencimiento</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button id="firstPage">|&lt;</button>
+                <button id="prevPage">&lt;</button>
+                <span id="pageInfo"></span>
+                <button id="nextPage">&gt;</button>
+                <button id="lastPage">&gt;|</button>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
