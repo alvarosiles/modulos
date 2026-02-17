@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Almacén</title>
+    <title>Productos - Registro de Producto</title>
     <style>
         * {
             margin: 0;
@@ -12,640 +12,767 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            background-color: #4a7ba7;
             padding: 20px;
-            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(90deg, #17a2b8, #20c997);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .header h1 {
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-icon {
-            width: 24px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .control-btn {
-            width: 28px;
-            height: 28px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .control-min {
-            background: #ffc107;
-            color: #333;
-        }
-
-        .control-max {
-            background: #28a745;
-            color: white;
-        }
-
-        .control-close {
-            background: #dc3545;
-            color: white;
-        }
-
-        .control-btn:hover {
-            opacity: 0.8;
+        .window {
+            background-color: #ecf0f1;
+            border: 2px solid;
+            border-color: #dfdfdf #808080 #808080 #dfdfdf;
+            box-shadow: 1px 1px 0 #ffffff inset;
         }
 
         .title-bar {
-            background: #17a2b8;
+            background: linear-gradient(to right, #000080, #1084d7);
             color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .toolbar {
-            background: #f8f9fa;
-            padding: 15px 20px;
+            padding: 2px 2px 2px 4px;
             display: flex;
-            gap: 20px;
-            border-bottom: 1px solid #dee2e6;
+            justify-content: space-between;
+            align-items: center;
+            height: 20px;
         }
 
-        .toolbar-btn {
-            background: white;
-            border: 1px solid #dee2e6;
-            padding: 6px 12px;
-            border-radius: 4px;
+        .title-bar-title {
+            font-size: 11px;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .title-bar-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .title-bar-button {
+            width: 16px;
+            height: 14px;
+            background: linear-gradient(135deg, #dfdfdf, #808080);
+            border: 1px solid;
+            border-color: #dfdfdf #404040 #404040 #dfdfdf;
+            font-size: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            transition: all 0.2s;
+            justify-content: center;
+            color: black;
         }
 
-        .toolbar-btn:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        .toolbar-btn.active {
-            background: #17a2b8;
-            color: white;
-            border-color: #17a2b8;
-        }
-
-        .companies-section {
-            padding: 15px 20px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .companies-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        .companies-table th {
-            background: #f0f0f0;
-            padding: 10px;
-            text-align: left;
-            font-weight: bold;
-            font-size: 13px;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .companies-table td {
-            padding: 10px;
-            border-bottom: 1px solid #dee2e6;
-            font-size: 13px;
-        }
-
-        .empty-data {
+        .header-section {
+            background-color: #d4a373;
+            padding: 8px;
             text-align: center;
-            color: #999;
-            padding: 20px;
-            font-style: italic;
-        }
-
-        .record-counter {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-        }
-
-        .counter-input {
-            width: 50px;
-            padding: 5px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-        }
-
-        .counter-btn {
-            background: white;
-            border: 1px solid #dee2e6;
-            padding: 4px 8px;
-            cursor: pointer;
-            border-radius: 4px;
+            font-weight: bold;
+            border-bottom: 1px solid #999;
             font-size: 12px;
         }
 
-        .tabs {
+        .toolbar {
+            background-color: #ecf0f1;
+            border-bottom: 1px solid #999;
+            padding: 4px;
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            padding: 0 20px;
+            gap: 4px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .tab {
-            padding: 12px 20px;
-            background: transparent;
-            border: none;
+        .toolbar-btn {
+            background-color: #dfdfdf;
+            border: 1px solid;
+            border-color: #dfdfdf #808080 #808080 #dfdfdf;
+            padding: 4px 8px;
             cursor: pointer;
-            font-size: 14px;
-            color: #495057;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .tab:hover {
-            background: #e9ecef;
-            color: #212529;
+        .toolbar-btn:active {a
+            border-color: #808080 #dfdfdf #dfdfdf #808080;
         }
 
-        .tab.active {
-            color: #17a2b8;
-            border-bottom-color: #17a2b8;
+        .content {
+            display: flex;
+            gap: 8px;
+            padding: 8px;
+            height: 600px;
         }
 
-        .form-section {
-            padding: 20px;
-        }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .form-field {
+        .left-panel {
+            flex: 0 0 45%;
+            background-color: white;
+            border: 1px solid #999;
             display: flex;
             flex-direction: column;
         }
 
+        .panel-title {
+            background-color: #9da5b3;
+            color: #000;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 1px solid #666;
+        }
+
+        .search-box {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .search-box label {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 4px;
+            border: 1px solid #999;
+            background-color: #00ffff;
+            font-size: 11px;
+        }
+
+        .table-section {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        table thead {
+            background-color: #b4cce1;
+            color: #000;
+        }
+
+        table th {
+            border: 1px solid #999;
+            padding: 4px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table td {
+            border: 1px solid #ddd;
+            padding: 4px 8px;
+        }
+
+        .table-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .bottom-bar {
+            background-color: #b4cce1;
+            border-top: 1px solid #999;
+            padding: 4px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .counter-box {
+            width: 80px;
+            padding: 4px;
+            border: 1px solid #999;
+            background-color: white;
+            font-size: 11px;
+        }
+
+        .right-panel {
+            flex: 1;
+            background-color: #ffffcc;
+            border: 1px solid #999;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #e8e8e8;
+            border-bottom: 1px solid #999;
+        }
+
+        .tab {
+            background-color: #dfdfdf;
+            border: 1px solid #999;
+            border-bottom: none;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 2px;
+            border-color: #dfdfdf #404040 #dfdfdf #dfdfdf;
+        }
+
+        .tab.active {
+            background-color: #ffffcc;
+            border-color: #dfdfdf #404040 #ffffcc #dfdfdf;
+        }
+
+        .tab-content {
+            padding: 12px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-field {
+            flex: 1;
+        }
+
+        .form-field-row {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 20px;
+        }
+
         .form-field label {
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: #333;
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 2px;
         }
 
         .form-field input,
         .form-field select,
         .form-field textarea {
-            padding: 8px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            background: #fffef0;
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #999;
+            background-color: white;
+            font-size: 11px;
+            font-family: 'MS Sans Serif', Arial;
         }
 
         .form-field textarea {
+            height: 60px;
             resize: vertical;
-            min-height: 60px;
         }
 
-        .form-field input:focus,
-        .form-field select:focus,
-        .form-field textarea:focus {
-            outline: none;
-            border-color: #17a2b8;
-            box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.1);
+        .form-row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .textarea-controls {
+        .factores-box {
+            border: 1px solid #999;
+            padding: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 12px;
+        }
+
+        .factores-box-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .imagen-box {
+            border: 1px solid #999;
+            width: 100px;
+            height: 100px;
+            background-color: white;
+        }
+
+        .navigation-bar {
+            background-color: #b4cce1;
+            border-top: 1px solid #999;
+            padding: 4px;
             display: flex;
-            gap: 8px;
-            margin-top: 8px;
+            gap: 2px;
+            align-items: center;
+            font-size: 10px;
         }
 
-        .textarea-btn {
-            background: white;
-            border: 1px solid #dee2e6;
-            width: 28px;
-            height: 28px;
+        .nav-btn {
+            background-color: #dfdfdf;
+            border: 1px solid;
+            border-color: #dfdfdf #808080 #808080 #dfdfdf;
+            width: 24px;
+            height: 20px;
             cursor: pointer;
-            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            transition: all 0.2s;
         }
 
-        .textarea-btn:hover {
-            background: #e9ecef;
+        .nav-btn:active {
+            border-color: #808080 #dfdfdf #dfdfdf #808080;
         }
 
-        .details-section {
-            padding: 0 20px 20px 20px;
-        }
-
-        .section-title {
-            background: #6c757d;
-            color: white;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-        }
-
-        .details-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #dee2e6;
-        }
-
-        .details-table th {
-            background: #f0f0f0;
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-            font-size: 13px;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .details-table td {
-            padding: 12px;
-            border-bottom: 1px solid #dee2e6;
-            font-size: 13px;
-        }
-
-        .details-table tbody tr:hover {
-            background: #f8f9fa;
-        }
-
-        .pagination {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .pagination-info {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .pagination-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .pag-btn {
-            background: white;
-            border: 1px solid #dee2e6;
-            padding: 6px 8px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: all 0.2s;
-        }
-
-        .pag-btn:hover {
-            background: #e9ecef;
-        }
-
-        .pag-input {
-            width: 60px;
-            padding: 6px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .footer-section {
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .footer-field {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-field label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .footer-field select {
-            padding: 6px 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            font-size: 13px;
-            background: white;
-            min-width: 150px;
-        }
-
-        .checkbox-field {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .checkbox-field input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .checkbox-field label {
-            font-size: 13px;
-            cursor: pointer;
-            margin: 0;
-        }
-
-        .footer-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-consolidate {
-            background: white;
-            border: 1px solid #dee2e6;
-            color: #333;
-        }
-
-        .btn-consolidate:hover {
-            background: #e9ecef;
-        }
-
-        .btn-process {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-process:hover {
-            background: #218838;
-        }
-
-        .btn-cancel {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-cancel:hover {
-            background: #c82333;
-        }
-
-        .full-width-input {
-            width: 100%;
-        }
-
-        @media (max-width: 1024px) {
-            .form-group {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .toolbar {
-                flex-wrap: wrap;
-            }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>
-                <div class="header-icon">◉</div>
-                Registro de Almacen
-            </h1>
-            <div class="window-controls">
-                <button class="control-btn control-min">_</button>
-                <button class="control-btn control-max">□</button>
-                <button class="control-btn control-close">✕</button>
+    <div class="window">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <span class="title-bar-title">Productos</span>
+            <div class="title-bar-controls">
+                <button class="title-bar-button">_</button>
+                <button class="title-bar-button">□</button>
+                <button class="title-bar-button">✕</button>
             </div>
         </div>
 
-        <!-- Title Bar -->
-        <div class="title-bar">REGISTROS DE ALMACÉN</div>
+        <!-- Header -->
+        <div class="header-section">REGISTRO DE PRODUCTO</div>
 
         <!-- Toolbar -->
         <div class="toolbar">
-            <button class="toolbar-btn">
-                📥 Importar
-            </button>
-            <button class="toolbar-btn">
-                🔄 Actualizar
-            </button>
+            <button class="toolbar-btn">📄 Nuevo</button>
+            <button class="toolbar-btn">🏷️ Etiqueta</button>
+            <button class="toolbar-btn">🔄 Actualizar</button>
+            <button class="toolbar-btn">📥 Importar</button>
+            <button class="toolbar-btn">📤 Exportar</button>
+            <button class="toolbar-btn">⚙️ Parámetros</button>
+            <button class="toolbar-btn">📊 Catálogo</button>
         </div>
 
-        <!-- Companies Section -->
-        <div class="companies-section">
-            <table class="companies-table">
-                <thead>
-                    <tr>
-                        <th>IdEmpresa</th>
-                        <th>Nombre de la Empresa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2" class="empty-data">&lt;No data to display&gt;</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="record-counter">
-                <span>Registro:</span>
-                <input type="text" class="counter-input" value="0" readonly>
-                <button class="counter-btn">⬆</button>
-                <button class="counter-btn">🔄</button>
-            </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab(this)">Registrar</button>
-            <button class="tab" onclick="switchTab(this)">Históricos</button>
-            <button class="tab" onclick="switchTab(this)">Buscar Producto</button>
-        </div>
-
-        <!-- Form Section -->
-        <div class="form-section">
-            <div class="form-group">
-                <div class="form-field">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" id="fecha">
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <div class="panel-title">Lista de Productos</div>
+                <div class="search-box">
+                    <label>Buscar:</label>
+                    <input type="text" placeholder="">
                 </div>
-                <div class="form-field">
-                    <label for="almacen">Almacen:</label>
-                    <select id="almacen">
-                        <option>-- Seleccionar --</option>
-                    </select>
+                <div class="table-section">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>IdProducto</th>
+                                <th>Descripcion</th>
+                                <th>Grupo</th>
+                                <th>SubGrupo</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height: 400px; text-align: center; color: #999;">
+                                <td colspan="5" style="vertical-align: middle;">&lt;No data to display&gt;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bottom-bar">
+                    <div class="counter-box">0</div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="form-field">
-                    <label for="nrodoc">NroDoc:</label>
-                    <input type="text" id="nrodoc">
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab(event, 'registro')">Registro</div>
+                    <div class="tab" onclick="switchTab(event, 'precios')">Precios</div>
+                    <div class="tab" onclick="switchTab(event, 'disponible')">Disponible</div>
                 </div>
-                <div class="form-field">
-                    <label for="tiporegistro">Tipo Registro:</label>
-                    <select id="tiporegistro">
-                        <option>-- Seleccionar --</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="form-field">
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion"></textarea>
-                <div class="textarea-controls">
-                    <button class="textarea-btn">▲</button>
-                    <button class="textarea-btn">✓</button>
-                    <button class="textarea-btn">✕</button>
-                </div>
-            </div>
-        </div>
+                <!-- Tab Content -->
+                <div class="tab-content" id="registro">
+                    <div class="form-row-2col">
+                        <div class="form-field">
+                            <label>Codigo</label>
+                            <input type="text">
+                        </div>
+                        <div class="form-field">
+                            <label>Marca/Tipo</label>
+                            <input type="text">
+                        </div>
+                    </div>
 
-        <!-- Details Section -->
-        <div class="details-section">
-            <div class="section-title">DETALLE DEL REGISTRO</div>
-            <table class="details-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>IdProducto</th>
-                        <th>Descripción</th>
-                        <th>Cantidad</th>
-                        <th>SubTotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="5" class="empty-data">&lt;No data to display&gt;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <div class="form-row-2col">
+                        <div class="form-field">
+                            <label>Otro Codigo</label>
+                            <input type="text">
+                        </div>
+                        <div></div>
+                    </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <div class="pagination-info">
-                <input type="text" class="pag-input" value="0">
-            </div>
-            <div class="pagination-controls">
-                <button class="pag-btn">◄◄</button>
-                <button class="pag-btn">◄</button>
-                <button class="pag-btn">▶</button>
-                <button class="pag-btn">►►</button>
-                <button class="pag-btn">+</button>
-                <button class="pag-btn">−</button>
-                <button class="pag-btn">✓</button>
-                <button class="pag-btn">✕</button>
-            </div>
-        </div>
+                    <div class="form-row-2col">
+                        <div class="form-field">
+                            <label>Grupo:</label>
+                            <select>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Origen:</label>
+                            <select>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
 
-        <!-- Footer -->
-        <div class="footer-section">
-            <div class="footer-left">
-                <div class="footer-field">
-                    <label for="cuenta">Cuenta:</label>
-                    <select id="cuenta">
-                        <option>-- Seleccionar --</option>
-                    </select>
+                    <div class="form-row-2col">
+                        <div class="form-field">
+                            <label>Sub-Grupo:</label>
+                            <select>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Industria</label>
+                            <select>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Descripcion:</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Descripcion2:</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-row-2col">
+                        <div>
+                            <div class="form-field">
+                                <label>Medida:</label>
+                                <select>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label>Estado</label>
+                                <select>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="factores-box">
+                                <div class="factores-box-title">Factores</div>
+                                <div class="form-field">
+                                    <label>Factor:</label>
+                                    <input type="text">
+                                </div>
+                                <div class="form-field">
+                                    <label>Factor A:</label>
+                                    <input type="text">
+                                </div>
+                                <div class="form-field">
+                                    <label>Factor B:</label>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <label>Imagen</label>
+                                <div class="imagen-box"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Notas</label>
+                        <textarea></textarea>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Notas</label>
+                        <textarea></textarea>
+                    </div>
+
+                    <div class="form-row-2col">
+                        <div class="form-field">
+                            <label>Minimo:</label>
+                            <input type="text">
+                        </div>
+                        <div class="form-field">
+                            <label>Maximo:</label>
+                            <input type="text">
+                        </div>
+                    </div>
                 </div>
-                <div class="checkbox-field">
-                    <input type="checkbox" id="consolidar">
-                    <label for="consolidar">Consolidar</label>
+
+                <div class="tab-content hidden" id="precios">
+                    <p style="font-size: 11px;">Contenido de Precios</p>
                 </div>
-            </div>
-            <div class="footer-actions">
-                <button class="btn btn-consolidate">Consolidar</button>
-                <button class="btn btn-process">✓ Procesar</button>
-                <button class="btn btn-cancel">✕ Cancel</button>
+
+                <div class="tab-content hidden" id="disponible">
+                    <p style="font-size: 11px;">Contenido de Disponible</p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="navigation-bar">
+                    <button class="nav-btn">⏮️</button>
+                    <button class="nav-btn">◀◀</button>
+                    <button class="nav-btn">◀</button>
+                    <button class="nav-btn">▶</button>
+                    <button class="nav-btn">▶▶</button>
+                    <button class="nav-btn">⏭️</button>
+                    <button class="nav-btn">➕</button>
+                    <button class="nav-btn">➖</button>
+                    <button class="nav-btn">⬆️</button>
+                    <button class="nav-btn">✓</button>
+                    <button class="nav-btn">✕</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        function switchTab(element) {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active');
+ <script>
+
+/* =========================
+   BASE DE DATOS
+========================= */
+
+const DB = {
+
+    Grupo: [
+        { id: 1, descripcion: "Bebidas" },
+        { id: 2, descripcion: "Alimentos" },
+        { id: 3, descripcion: "Limpieza" }
+    ],
+
+    SubGrupo: [
+        { id: 1, descripcion: "Gaseosas", grupoId: 1 },
+        { id: 2, descripcion: "Jugos", grupoId: 1 },
+        { id: 3, descripcion: "Hamburguesas", grupoId: 2 },
+        { id: 4, descripcion: "Snacks", grupoId: 2 },
+        { id: 5, descripcion: "Detergentes", grupoId: 3 }
+    ],
+
+    Origen: [
+        { id: 1, descripcion: "Nacional" },
+        { id: 2, descripcion: "Importado" },
+        { id: 3, descripcion: "Artesanal" }
+    ],
+
+    Industria: [
+        { id: 1, descripcion: "Coca Cola" },
+        { id: 2, descripcion: "Nestlé" },
+        { id: 3, descripcion: "Unilever" }
+    ],
+
+    Medida: [
+        { id: 1, descripcion: "Unidad" },
+        { id: 2, descripcion: "Caja" },
+        { id: 3, descripcion: "Paquete" }
+    ],
+
+    Tipo: [
+        { id: 1, descripcion: "Venta" },
+        { id: 2, descripcion: "Consumo" },
+        { id: 3, descripcion: "Servicio" }
+    ],
+
+    Producto: [
+        {
+            id: 1,
+            codigo: "P-001",
+            descripcion: "Coca Cola 2L",
+            grupoId: 1,
+            subGrupoId: 1,
+            tipoId: 1
+        },
+        {
+            id: 2,
+            codigo: "P-002",
+            descripcion: "Hamburguesa Clásica",
+            grupoId: 2,
+            subGrupoId: 3,
+            tipoId: 1
+        },
+        {
+            id: 3,
+            codigo: "P-003",
+            descripcion: "Detergente Líquido",
+            grupoId: 3,
+            subGrupoId: 5,
+            tipoId: 1
         }
-    </script>
+    ]
+};
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const tbody = document.querySelector("tbody");
+const counter = document.querySelector(".counter-box");
+const searchInput = document.querySelector(".search-box input");
+
+const selects = document.querySelectorAll("select");
+const btnGuardar = document.querySelector(".nav-btn:nth-last-child(2)");
+
+const inputCodigo = document.querySelectorAll("input")[0];
+const inputDescripcion = document.querySelectorAll("input")[4];
+
+
+/* =========================
+   CARGAR SELECTS
+========================= */
+
+function loadSelect(select, data) {
+    select.innerHTML = `<option value="">Seleccione</option>`;
+    data.forEach(item => {
+        select.innerHTML += `<option value="${item.id}">${item.descripcion}</option>`;
+    });
+}
+
+loadSelect(selects[0], DB.Grupo);
+loadSelect(selects[1], DB.Origen);
+loadSelect(selects[3], DB.Industria);
+loadSelect(selects[4], DB.Medida);
+loadSelect(selects[5], DB.Tipo);
+
+// Estado manual
+selects[5].innerHTML += `<option value="4">Activo</option>`;
+selects[5].innerHTML += `<option value="5">Inactivo</option>`;
+
+
+/* =========================
+   FILTRAR SUBGRUPO
+========================= */
+
+selects[0].addEventListener("change", () => {
+
+    const grupoId = parseInt(selects[0].value);
+
+    const filtrados = DB.SubGrupo.filter(s => s.grupoId === grupoId);
+
+    loadSelect(selects[2], filtrados);
+});
+
+
+/* =========================
+   RENDER TABLA
+========================= */
+
+function renderTabla(filtro="") {
+
+    if (DB.Producto.length === 0) {
+        tbody.innerHTML = `
+        <tr style="height:300px;text-align:center;color:#999;">
+            <td colspan="5">&lt;No data to display&gt;</td>
+        </tr>`;
+        counter.innerText = 0;
+        return;
+    }
+
+    const lista = DB.Producto.filter(p =>
+        p.descripcion.toLowerCase().includes(filtro.toLowerCase())
+    );
+
+    tbody.innerHTML = lista.map(p => {
+
+        const grupo = DB.Grupo.find(g => g.id === p.grupoId);
+        const subgrupo = DB.SubGrupo.find(s => s.id === p.subGrupoId);
+        const tipo = DB.Tipo.find(t => t.id === p.tipoId);
+
+        return `
+            <tr>
+                <td>${p.id}</td>
+                <td>${p.descripcion}</td>
+                <td>${grupo ? grupo.descripcion : ""}</td>
+                <td>${subgrupo ? subgrupo.descripcion : ""}</td>
+                <td>${tipo ? tipo.descripcion : ""}</td>
+            </tr>
+        `;
+    }).join("");
+
+    counter.innerText = lista.length;
+}
+
+renderTabla();
+
+
+/* =========================
+   BUSCADOR
+========================= */
+
+searchInput.addEventListener("input", e => {
+    renderTabla(e.target.value);
+});
+
+
+/* =========================
+   GUARDAR PRODUCTO (✓)
+========================= */
+
+btnGuardar.addEventListener("click", () => {
+
+    if (!inputDescripcion.value) {
+        alert("Ingrese descripción");
+        return;
+    }
+
+    const nuevo = {
+        id: DB.Producto.length + 1,
+        codigo: inputCodigo.value,
+        descripcion: inputDescripcion.value,
+        grupoId: parseInt(selects[0].value),
+        subGrupoId: parseInt(selects[2].value),
+        tipoId: parseInt(selects[5].value)
+    };
+
+    DB.Producto.push(nuevo);
+
+    renderTabla();
+    limpiarFormulario();
+});
+
+
+/* =========================
+   LIMPIAR
+========================= */
+
+function limpiarFormulario() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.querySelectorAll("select").forEach(s => s.value = "");
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+function switchTab(event, tabName) {
+    document.querySelectorAll('.tab-content')
+        .forEach(c => c.classList.add('hidden'));
+
+    document.querySelectorAll('.tab')
+        .forEach(t => t.classList.remove('active'));
+
+    document.getElementById(tabName).classList.remove('hidden');
+    event.target.classList.add('active');
+}
+
+</script>
+
 </body>
 </html>
