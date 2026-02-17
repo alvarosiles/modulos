@@ -2,248 +2,273 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema</title>
+<title>Sistema Demo</title>
 
 <style>
 body{
     margin:0;
-    font-family: Segoe UI, Arial, sans-serif;
-    background:#f5f5f5;
+    font-family:Arial;
+    background:#dcdcdc;
+    height:100vh;
+    overflow:hidden;
 }
 
-/* ====== BARRA SUPERIOR ====== */
+/* ===== MENÚ SUPERIOR ===== */
 .topbar{
-    background:#243b5a;
+    background:#2e4a73;
     color:white;
-    padding:10px 15px;
+    padding:8px 15px;
     font-weight:bold;
 }
 
-/* ====== SUB MENU ====== */
 .submenu{
-    background:#dcdcdc;
+    background:#cfd6df;
+    padding:5px 10px;
     display:flex;
-    padding-left:10px;
-    border-bottom:1px solid #bdbdbd;
+    gap:20px;
+    font-size:14px;
 }
 
-.submenu div{
-    padding:10px 18px;
+.submenu span{
     cursor:pointer;
 }
 
-.submenu div:hover{
-    background:#c5c5c5;
-}
-
-.submenu .activo{
-    background:#4a90e2;
-    color:white;
-}
-
-/* ====== MENU ICONOS ====== */
-.iconos{
-    background:#e8e8e8;
-    padding:15px;
+.toolbar{
+    background:#e6e6e6;
+    padding:10px;
     display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-    border-bottom:1px solid #ccc;
+    gap:10px;
 }
 
-.boton{
-    width:90px;
-    height:80px;
-    background:white;
-    border:1px solid #bdbdbd;
-    border-radius:5px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+.toolbar button{
+    padding:8px 15px;
     cursor:pointer;
-    transition:0.2s;
-    font-size:13px;
+    border:1px solid #999;
+    background:white;
 }
 
-.boton:hover{
-    background:#4a90e2;
+.toolbar button.active{
+    background:#2e4a73;
     color:white;
 }
 
-.boton span{
-    font-size:28px;
+/* ===== ÁREA DE TRABAJO ===== */
+.workspace{
+    position:relative;
+    height:calc(100vh - 120px);
+    background:#f2f2f2;
+    overflow:hidden;
 }
 
-/* ====== CONTENIDO ====== */
-.contenido{
-    padding:30px;
+/* ===== VENTANA ===== */
+.ventana{
+    position:absolute;
+    width:500px;
+    height:350px;
     background:white;
-    min-height:300px;
-}
-
-.vista{
+    border:1px solid #444;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
     display:none;
+    flex-direction:column;
 }
 
-.vista.activa{
-    display:block;
+.ventana-header{
+    background:#2e4a73;
+    color:white;
+    padding:6px 10px;
+    display:flex;
+    justify-content:space-between;
+    cursor:move;
+    user-select:none;
 }
+
+.ventana-controls span{
+    margin-left:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.ventana-body{
+    flex:1;
+    padding:10px;
+    overflow:auto;
+}
+
+.ventana-footer{
+    height:28px;
+    background:#d9d9d9;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 10px;
+    font-size:13px;
+    border-top:1px solid #bbb;
+}
+
+/* minimizada */
+.minimizada{
+    height:35px !important;
+}
+
+.maximizada{
+    top:0 !important;
+    left:0 !important;
+    width:100% !important;
+    height:100% !important;
+}
+
 </style>
 </head>
 <body>
 
-<!-- Barra azul -->
-<div class="topbar">
-    ▾ Principal
-</div>
+<div class="topbar">▼ Principal</div>
 
-<!-- Sub menú -->
 <div class="submenu">
-    <div class="activo">Archivos</div>
-    <div>Parámetros</div>
-    <div>Comercial</div>
-    <div>Inventarios</div>
-    <div>Ventanas</div>
-    <div>Acerca de ...</div>
+    <span>Archivos</span>
+    <span>Parámetros</span>
+    <span>Comercial</span>
+    <span>Inventarios</span>
+    <span>Ventanas</span>
+    <span>Acerca de...</span>
 </div>
 
-<!-- Iconos principales -->
-<div class="iconos">
-
-    <div class="boton" onclick="mostrarVista('seguimiento')">
-        <span>📦</span>
-        Seguimiento
-    </div>
-
-    <div class="boton" onclick="mostrarVista('compras')">
-        <span>🛒</span>
-        Compras
-    </div>
-
-    <div class="boton" onclick="mostrarVista('proforma')">
-        <span>📄</span>
-        Proforma
-    </div>
-
-    <div class="boton" onclick="mostrarVista('ventas')">
-        <span>✔️</span>
-        Ventas
-    </div>
-
-    <div class="boton" onclick="mostrarVista('cajero')">
-        <span>💰</span>
-        Cajero
-    </div>
-
-    <div class="boton" onclick="mostrarVista('caja')">
-        <span>🏦</span>
-        Caja
-    </div>
-
-    <div class="boton" onclick="mostrarVista('tc')">
-        <span>🔄</span>
-        T/C
-    </div>
-
-    <div class="boton" onclick="mostrarVista('inventario')">
-        <span>📊</span>
-        Inventario
-    </div>
-
-    <div class="boton" onclick="mostrarVista('valorado')">
-        <span>📈</span>
-        Valorado
-    </div>
-
-    <div class="boton" onclick="mostrarVista('reportes')">
-        <span>📋</span>
-        Reportes
-    </div>
-
-    <div class="boton" onclick="mostrarVista('buscar')">
-        <span>🔍</span>
-        Buscar
-    </div>
-
-    <div class="boton" onclick="mostrarVista('etiqueta')">
-        <span>🏷️</span>
-        Etiqueta
-    </div>
-
-    <div class="boton" onclick="mostrarVista('salir')">
-        <span>↗</span>
-        Salir
-    </div>
-
+<div class="toolbar">
+    <button onclick="abrirVentana('Ventas', this)">Ventas</button>
+    <button onclick="abrirVentana('Compras', this)">Compras</button>
+    <button onclick="abrirVentana('Inventario', this)">Inventario</button>
 </div>
 
-<!-- CONTENIDO -->
-<div class="contenido">
+<div class="workspace">
 
-    <div id="seguimiento" class="vista activa">
-        <h2>Vista Seguimiento</h2>
-    </div>
+    <div class="ventana" id="miVentana">
 
-    <div id="compras" class="vista">
-        <h2>Vista Compras</h2>
-    </div>
+        <div class="ventana-header" id="ventanaHeader">
+            <span id="tituloVentana">Ventas</span>
+            <div class="ventana-controls">
+                <span onclick="minimizar()">🗕</span>
+                <span onclick="maximizar()">🗖</span>
+                <span onclick="cerrar()">✖</span>
+            </div>
+        </div>
 
-    <div id="proforma" class="vista">
-        <h2>Vista Proforma</h2>
-    </div>
+        <div class="ventana-body" id="contenidoVentana">
+            Contenido
+        </div>
 
-    <div id="ventas" class="vista">
-        <h2>Vista Ventas</h2>
-    </div>
+        <div class="ventana-footer">
+            <div id="fechaActual"></div>
+            <div id="horaActual"></div>
+        </div>
 
-    <div id="cajero" class="vista">
-        <h2>Vista Cajero</h2>
-    </div>
-
-    <div id="caja" class="vista">
-        <h2>Vista Caja</h2>
-    </div>
-
-    <div id="tc" class="vista">
-        <h2>Vista Tipo de Cambio</h2>
-    </div>
-
-    <div id="inventario" class="vista">
-        <h2>Vista Inventario</h2>
-    </div>
-
-    <div id="valorado" class="vista">
-        <h2>Vista Valorado</h2>
-    </div>
-
-    <div id="reportes" class="vista">
-        <h2>Vista Reportes</h2>
-    </div>
-
-    <div id="buscar" class="vista">
-        <h2>Vista Buscar</h2>
-    </div>
-
-    <div id="etiqueta" class="vista">
-        <h2>Vista Etiqueta</h2>
-    </div>
-
-    <div id="salir" class="vista">
-        <h2>Salir del Sistema</h2>
     </div>
 
 </div>
 
 <script>
-function mostrarVista(id){
-    document.querySelectorAll(".vista").forEach(v=>{
-        v.classList.remove("activa");
-    });
 
-    document.getElementById(id).classList.add("activa");
+const ventana = document.getElementById("miVentana");
+const workspace = document.querySelector(".workspace");
+let isMaximized = false;
+let offsetX, offsetY, isDragging=false;
+
+/* ===== ABRIR ===== */
+function abrirVentana(titulo, boton){
+
+    document.querySelectorAll(".toolbar button").forEach(b => b.classList.remove("active"));
+    boton.classList.add("active");
+
+    ventana.style.display="flex";
+    ventana.classList.remove("minimizada");
+
+    ventana.style.width="500px";
+    ventana.style.height="350px";
+    ventana.style.top="50px";
+    ventana.style.left="50px";
+
+    document.getElementById("tituloVentana").innerText=titulo;
+    document.getElementById("contenidoVentana").innerHTML="Vista de "+titulo;
+
+    isMaximized=false;
 }
+
+/* ===== CERRAR ===== */
+function cerrar(){
+    ventana.style.display="none";
+    document.querySelectorAll(".toolbar button").forEach(b => b.classList.remove("active"));
+}
+
+/* ===== MINIMIZAR ===== */
+function minimizar(){
+    ventana.classList.toggle("minimizada");
+}
+
+/* ===== MAXIMIZAR ===== */
+function maximizar(){
+
+    if(!isMaximized){
+        ventana.classList.add("maximizada");
+        isMaximized=true;
+    }else{
+        ventana.classList.remove("maximizada");
+        ventana.style.width="500px";
+        ventana.style.height="350px";
+        ventana.style.top="50px";
+        ventana.style.left="50px";
+        isMaximized=false;
+    }
+}
+
+/* ===== DOBLE CLIC HEADER ===== */
+document.getElementById("ventanaHeader").ondblclick = maximizar;
+
+/* ===== ESC CERRAR ===== */
+document.addEventListener("keydown", function(e){
+    if(e.key==="Escape"){
+        cerrar();
+    }
+});
+
+/* ===== DRAG ===== */
+document.getElementById("ventanaHeader").addEventListener("mousedown", function(e){
+    if(isMaximized) return;
+
+    isDragging=true;
+    offsetX = e.clientX - ventana.offsetLeft;
+    offsetY = e.clientY - ventana.offsetTop;
+});
+
+document.addEventListener("mousemove", function(e){
+    if(!isDragging) return;
+
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
+
+    // evitar salir del workspace
+    x = Math.max(0, Math.min(x, workspace.clientWidth - ventana.offsetWidth));
+    y = Math.max(0, Math.min(y, workspace.clientHeight - ventana.offsetHeight));
+
+    ventana.style.left = x + "px";
+    ventana.style.top = y + "px";
+});
+
+document.addEventListener("mouseup", function(){
+    isDragging=false;
+});
+
+/* ===== RELOJ ===== */
+function actualizarReloj(){
+    const ahora = new Date();
+
+    document.getElementById("fechaActual").innerText =
+        ahora.toLocaleDateString("es-ES");
+
+    document.getElementById("horaActual").innerText =
+        ahora.toLocaleTimeString("es-ES");
+}
+
+setInterval(actualizarReloj,1000);
+actualizarReloj();
+
 </script>
 
 </body>
