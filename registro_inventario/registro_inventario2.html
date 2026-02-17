@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Almacén</title>
+<link rel="stylesheet" href="css/registro_inventario.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Registro de Almacén</h1>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('registrar')">Registrar</button>
+        <button class="tab" onclick="switchTab('historicos')">Históricos</button>
+    </div>
+
+    <!-- REGISTRAR -->
+    <div id="registrar" class="tab-content active">
+
+        <div class="form-group">
+            <input type="date" id="fecha">
+            <select id="almacen"></select>
+            <input type="text" id="nrodoc" placeholder="Nro Documento">
+            <select id="tiporegistro"></select>
+        </div>
+
+        <textarea id="descripcion" placeholder="Descripción"></textarea>
+
+        <h3>Detalle</h3>
+
+        <table id="detalleTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>SubTotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button onclick="agregarFila()">+ Agregar Producto</button>
+        <button class="btn-process" onclick="procesar()">Procesar</button>
+
+    </div>
+
+    <!-- HISTORICOS -->
+    <div id="historicos" class="tab-content">
+        <h3>Registros Guardados</h3>
+        <table id="historicosTable">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Almacén</th>
+                    <th>Tipo</th>
+                    <th>NroDoc</th>
+                    <th>Total Items</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="js/registro_inventario.js"></script>
+</body>
+</html>
