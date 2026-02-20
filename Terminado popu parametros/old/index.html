@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio</title>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<button id="openModal" style="text-align:center;padding:8px;font-weight:bold;">Abrir Parámetros</button>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+
+    <div class="title-bar">
+        <span>Parámetros</span>
+        <button id="closeModal">X</button>
+    </div>
+
+    <div class="tabs"></div>
+
+    <div class="table-header">
+        <div class="table-header-cell" style="flex:0.5;">ID</div>
+        <div class="table-header-cell">Descripción</div>
+        <div class="table-header-cell" style="flex:0.5;">Extra</div>
+    </div>
+
+    <div class="table-body"></div>
+
+    <div class="footer">
+        <input type="text" class="record-count" value="0" readonly>
+
+        <div class="footer-buttons">
+            <button id="saveBtn" class="mini-btn">✔</button>
+            <button id="cancelBtn" class="mini-btn">✖</button>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

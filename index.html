@@ -1,778 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - Registro de Producto</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            background-color: #4a7ba7;
-            padding: 20px;
-        }
-
-        .window {
-            background-color: #ecf0f1;
-            border: 2px solid;
-            border-color: #dfdfdf #808080 #808080 #dfdfdf;
-            box-shadow: 1px 1px 0 #ffffff inset;
-        }
-
-        .title-bar {
-            background: linear-gradient(to right, #000080, #1084d7);
-            color: white;
-            padding: 2px 2px 2px 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 20px;
-        }
-
-        .title-bar-title {
-            font-size: 11px;
-            font-weight: bold;
-            flex: 1;
-        }
-
-        .title-bar-controls {
-            display: flex;
-            gap: 2px;
-        }
-
-        .title-bar-button {
-            width: 16px;
-            height: 14px;
-            background: linear-gradient(135deg, #dfdfdf, #808080);
-            border: 1px solid;
-            border-color: #dfdfdf #404040 #404040 #dfdfdf;
-            font-size: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-        }
-
-        .header-section {
-            background-color: #d4a373;
-            padding: 8px;
-            text-align: center;
-            font-weight: bold;
-            border-bottom: 1px solid #999;
-            font-size: 12px;
-        }
-
-        .toolbar {
-            background-color: #ecf0f1;
-            border-bottom: 1px solid #999;
-            padding: 4px;
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .toolbar-btn {
-            background-color: #dfdfdf;
-            border: 1px solid;
-            border-color: #dfdfdf #808080 #808080 #dfdfdf;
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .toolbar-btn:active {a
-            border-color: #808080 #dfdfdf #dfdfdf #808080;
-        }
-
-        .content {
-            display: flex;
-            gap: 8px;
-            padding: 8px;
-            height: 600px;
-        }
-
-        .left-panel {
-            flex: 0 0 45%;
-            background-color: white;
-            border: 1px solid #999;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .panel-title {
-            background-color: #9da5b3;
-            color: #000;
-            padding: 4px 8px;
-            font-weight: bold;
-            font-size: 12px;
-            border-bottom: 1px solid #666;
-        }
-
-        .search-box {
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .search-box label {
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 4px;
-            border: 1px solid #999;
-            background-color: #00ffff;
-            font-size: 11px;
-        }
-
-        .table-section {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-        }
-
-        table thead {
-            background-color: #b4cce1;
-            color: #000;
-        }
-
-        table th {
-            border: 1px solid #999;
-            padding: 4px 8px;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        table td {
-            border: 1px solid #ddd;
-            padding: 4px 8px;
-        }
-
-        .table-body {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 11px;
-        }
-
-        .bottom-bar {
-            background-color: #b4cce1;
-            border-top: 1px solid #999;
-            padding: 4px;
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-
-        .counter-box {
-            width: 80px;
-            padding: 4px;
-            border: 1px solid #999;
-            background-color: white;
-            font-size: 11px;
-        }
-
-        .right-panel {
-            flex: 1;
-            background-color: #ffffcc;
-            border: 1px solid #999;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .tabs {
-            display: flex;
-            background-color: #e8e8e8;
-            border-bottom: 1px solid #999;
-        }
-
-        .tab {
-            background-color: #dfdfdf;
-            border: 1px solid #999;
-            border-bottom: none;
-            padding: 6px 16px;
-            cursor: pointer;
-            font-size: 11px;
-            margin-right: 2px;
-            border-color: #dfdfdf #404040 #dfdfdf #dfdfdf;
-        }
-
-        .tab.active {
-            background-color: #ffffcc;
-            border-color: #dfdfdf #404040 #ffffcc #dfdfdf;
-        }
-
-        .tab-content {
-            padding: 12px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-field {
-            flex: 1;
-        }
-
-        .form-field-row {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-field label {
-            display: block;
-            font-size: 11px;
-            font-weight: bold;
-            margin-bottom: 2px;
-        }
-
-        .form-field input,
-        .form-field select,
-        .form-field textarea {
-            width: 100%;
-            padding: 4px;
-            border: 1px solid #999;
-            background-color: white;
-            font-size: 11px;
-            font-family: 'MS Sans Serif', Arial;
-        }
-
-        .form-field textarea {
-            height: 60px;
-            resize: vertical;
-        }
-
-        .form-row-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .factores-box {
-            border: 1px solid #999;
-            padding: 8px;
-            background-color: #f9f9f9;
-            margin-bottom: 12px;
-        }
-
-        .factores-box-title {
-            font-weight: bold;
-            font-size: 11px;
-            margin-bottom: 8px;
-        }
-
-        .imagen-box {
-            border: 1px solid #999;
-            width: 100px;
-            height: 100px;
-            background-color: white;
-        }
-
-        .navigation-bar {
-            background-color: #b4cce1;
-            border-top: 1px solid #999;
-            padding: 4px;
-            display: flex;
-            gap: 2px;
-            align-items: center;
-            font-size: 10px;
-        }
-
-        .nav-btn {
-            background-color: #dfdfdf;
-            border: 1px solid;
-            border-color: #dfdfdf #808080 #808080 #dfdfdf;
-            width: 24px;
-            height: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-btn:active {
-            border-color: #808080 #dfdfdf #dfdfdf #808080;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Registro de Productos</title>
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
+
     <div class="window">
-        <!-- Title Bar -->
-        <div class="title-bar">
-            <span class="title-bar-title">Productos</span>
-            <div class="title-bar-controls">
-                <button class="title-bar-button">_</button>
-                <button class="title-bar-button">□</button>
-                <button class="title-bar-button">✕</button>
-            </div>
-        </div>
+        <div class="header-section">REGISTRO DE PRODUCTOS</div>
 
-        <!-- Header -->
-        <div class="header-section">REGISTRO DE PRODUCTO</div>
-
-        <!-- Toolbar -->
         <div class="toolbar">
             <button class="toolbar-btn">📄 Nuevo</button>
-            <button class="toolbar-btn">🏷️ Etiqueta</button>
             <button class="toolbar-btn">🔄 Actualizar</button>
             <button class="toolbar-btn">📥 Importar</button>
             <button class="toolbar-btn">📤 Exportar</button>
             <button class="toolbar-btn">⚙️ Parámetros</button>
-            <button class="toolbar-btn">📊 Catálogo</button>
         </div>
 
-        <!-- Main Content -->
         <div class="content">
-            <!-- Left Panel -->
+
+            <!-- ================== LISTA ================== -->
             <div class="left-panel">
+
                 <div class="panel-title">Lista de Productos</div>
+
                 <div class="search-box">
                     <label>Buscar:</label>
-                    <input type="text" placeholder="">
+                    <input type="text" id="search">
                 </div>
+
                 <div class="table-section">
-                    <table>
+                    <table class="table table-bordered tabla-fija">
                         <thead>
                             <tr>
-                                <th>IdProducto</th>
-                                <th>Descripcion</th>
+                                <!-- <th>ID</th> -->
+                                <th>Código</th>
+                                <th class="col-nombre">Descripción</th>
+                                <th>Precio</th>
                                 <th>Grupo</th>
                                 <th>SubGrupo</th>
-                                <th>Tipo</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr style="height: 400px; text-align: center; color: #999;">
-                                <td colspan="5" style="vertical-align: middle;">&lt;No data to display&gt;</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="tbody"></tbody>
                     </table>
                 </div>
+
                 <div class="bottom-bar">
-                    <div class="counter-box">0</div>
+                    <div class="counter-box" id="counter">0</div>
                 </div>
+
             </div>
 
-            <!-- Right Panel -->
+            <!-- ================== FORMULARIO ================== -->
             <div class="right-panel">
-                <!-- Tabs -->
                 <div class="tabs">
                     <div class="tab active" onclick="switchTab(event, 'registro')">Registro</div>
                     <div class="tab" onclick="switchTab(event, 'precios')">Precios</div>
                     <div class="tab" onclick="switchTab(event, 'disponible')">Disponible</div>
                 </div>
+                <div class="right-panel-body">
 
-                <!-- Tab Content -->
-                <div class="tab-content" id="registro">
                     <div class="form-row-2col">
+
+
                         <div class="form-field">
-                            <label>Codigo</label>
-                            <input type="text">
+                            <label>Código</label>
+                            <input type="text" id="codigo">
                         </div>
                         <div class="form-field">
                             <label>Marca/Tipo</label>
-                            <input type="text">
+                            <select id="marca"></select>
+
+                            <!-- <input type="text" id="marca"> -->
+                        </div>
+
+                    </div>
+                    <div class="form-row-2col">
+
+
+
+                        <div class="form-field">
+                            <label>Grupo</label>
+                            <select id="grupo"></select>
+                        </div>
+
+                        <div class="form-field">
+                            <label>Origen</label>
+                            <select id="origen"></select>
                         </div>
                     </div>
 
-                    <div class="form-row-2col">
-                        <div class="form-field">
-                            <label>Otro Codigo</label>
-                            <input type="text">
-                        </div>
-                        <div></div>
-                    </div>
+
 
                     <div class="form-row-2col">
-                        <div class="form-field">
-                            <label>Grupo:</label>
-                            <select>
-                                <option></option>
-                            </select>
-                        </div>
-                        <div class="form-field">
-                            <label>Origen:</label>
-                            <select>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="form-row-2col">
+
                         <div class="form-field">
-                            <label>Sub-Grupo:</label>
-                            <select>
-                                <option></option>
-                            </select>
+                            <label>SubGrupo</label>
+                            <select id="subGrupo"></select>
                         </div>
+
+
                         <div class="form-field">
                             <label>Industria</label>
-                            <select>
-                                <option></option>
-                            </select>
+                            <select id="industria"></select>
                         </div>
                     </div>
 
-                    <div class="form-field">
-                        <label>Descripcion:</label>
-                        <input type="text">
-                    </div>
+                    <!-- <div> -->
 
                     <div class="form-field">
-                        <label>Descripcion2:</label>
-                        <input type="text">
+                        <label>Descripción</label>
+                        <input type="text" id="descripcion">
                     </div>
+                    <!-- </div> -->
+
+
 
                     <div class="form-row-2col">
                         <div>
                             <div class="form-field">
-                                <label>Medida:</label>
-                                <select>
-                                    <option></option>
-                                </select>
+                                <label>Medida</label>
+                                <select id="medida"></select>
                             </div>
+
                             <div class="form-field">
                                 <label>Estado</label>
-                                <select>
-                                    <option></option>
-                                </select>
+                                <select id="estado"></select>
                             </div>
                         </div>
+
                         <div>
                             <div class="factores-box">
                                 <div class="factores-box-title">Factores</div>
                                 <div class="form-field">
-                                    <label>Factor:</label>
+                                    <label>Precio Venta:</label>
+                                    <input type="number" id="precio">
+
+                                </div>
+                                <div class="form-field">
+                                    <label>Precio Compra:</label>
                                     <input type="text">
                                 </div>
                                 <div class="form-field">
-                                    <label>Factor A:</label>
-                                    <input type="text">
-                                </div>
-                                <div class="form-field">
-                                    <label>Factor B:</label>
-                                    <input type="text">
+                                    <label>Moneda:</label>
+                                    <input type="text" id="moneda" value="Bs">
                                 </div>
                             </div>
                             <div class="form-field">
                                 <label>Imagen</label>
-                                <div class="imagen-box"></div>
+                                <img class="imagen-box" id="preview" width="120">
+
+                                <!-- <div class="imagen-box"></div> -->
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-field">
-                        <label>Notas</label>
-                        <textarea></textarea>
-                    </div>
 
-                    <div class="form-field">
-                        <label>Notas</label>
-                        <textarea></textarea>
-                    </div>
-
-                    <div class="form-row-2col">
-                        <div class="form-field">
-                            <label>Minimo:</label>
-                            <input type="text">
-                        </div>
-                        <div class="form-field">
-                            <label>Maximo:</label>
-                            <input type="text">
-                        </div>
+                        <!-- <div class="form-field">
+                        <label>Imagen</label><br>
+                        <img id="preview" width="120">
+                    </div> -->
                     </div>
                 </div>
 
-                <div class="tab-content hidden" id="precios">
-                    <p style="font-size: 11px;">Contenido de Precios</p>
-                </div>
 
-                <div class="tab-content hidden" id="disponible">
-                    <p style="font-size: 11px;">Contenido de Disponible</p>
-                </div>
 
-                <!-- Navigation -->
+
+
+                <!-- BOTONES -->
                 <div class="navigation-bar">
-                    <button class="nav-btn">⏮️</button>
+
+
+                    <button id="btnFirst" class="nav-btn">⏮️</button>
                     <button class="nav-btn">◀◀</button>
-                    <button class="nav-btn">◀</button>
-                    <button class="nav-btn">▶</button>
+
+                    <button id="btnPrev" class="nav-btn">◀</button>
+                    <button id="btnNext" class="nav-btn">▶</button>
                     <button class="nav-btn">▶▶</button>
-                    <button class="nav-btn">⏭️</button>
-                    <button class="nav-btn">➕</button>
-                    <button class="nav-btn">➖</button>
-                    <button class="nav-btn">⬆️</button>
-                    <button class="nav-btn">✓</button>
-                    <button class="nav-btn">✕</button>
+
+
+                    <button id="btnLast" class="nav-btn">⏭️</button>
+
+                    <button id="btnNew" class="nav-btn">➕</button>
+                    <button id="btnDelete" class="nav-btn">➖</button>
+                    <button id="btnSave" class="nav-btn">✓</button>
+                    <button id="btnCancel" class="nav-btn">✕</button>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 
- <script>
-
-/* =========================
-   BASE DE DATOS
-========================= */
-
-const DB = {
-
-    Grupo: [
-        { id: 1, descripcion: "Bebidas" },
-        { id: 2, descripcion: "Alimentos" },
-        { id: 3, descripcion: "Limpieza" }
-    ],
-
-    SubGrupo: [
-        { id: 1, descripcion: "Gaseosas", grupoId: 1 },
-        { id: 2, descripcion: "Jugos", grupoId: 1 },
-        { id: 3, descripcion: "Hamburguesas", grupoId: 2 },
-        { id: 4, descripcion: "Snacks", grupoId: 2 },
-        { id: 5, descripcion: "Detergentes", grupoId: 3 }
-    ],
-
-    Origen: [
-        { id: 1, descripcion: "Nacional" },
-        { id: 2, descripcion: "Importado" },
-        { id: 3, descripcion: "Artesanal" }
-    ],
-
-    Industria: [
-        { id: 1, descripcion: "Coca Cola" },
-        { id: 2, descripcion: "Nestlé" },
-        { id: 3, descripcion: "Unilever" }
-    ],
-
-    Medida: [
-        { id: 1, descripcion: "Unidad" },
-        { id: 2, descripcion: "Caja" },
-        { id: 3, descripcion: "Paquete" }
-    ],
-
-    Tipo: [
-        { id: 1, descripcion: "Venta" },
-        { id: 2, descripcion: "Consumo" },
-        { id: 3, descripcion: "Servicio" }
-    ],
-
-    Producto: [
-        {
-            id: 1,
-            codigo: "P-001",
-            descripcion: "Coca Cola 2L",
-            grupoId: 1,
-            subGrupoId: 1,
-            tipoId: 1
-        },
-        {
-            id: 2,
-            codigo: "P-002",
-            descripcion: "Hamburguesa Clásica",
-            grupoId: 2,
-            subGrupoId: 3,
-            tipoId: 1
-        },
-        {
-            id: 3,
-            codigo: "P-003",
-            descripcion: "Detergente Líquido",
-            grupoId: 3,
-            subGrupoId: 5,
-            tipoId: 1
-        }
-    ]
-};
-
-
-/* =========================
-   ELEMENTOS
-========================= */
-
-const tbody = document.querySelector("tbody");
-const counter = document.querySelector(".counter-box");
-const searchInput = document.querySelector(".search-box input");
-
-const selects = document.querySelectorAll("select");
-const btnGuardar = document.querySelector(".nav-btn:nth-last-child(2)");
-
-const inputCodigo = document.querySelectorAll("input")[0];
-const inputDescripcion = document.querySelectorAll("input")[4];
-
-
-/* =========================
-   CARGAR SELECTS
-========================= */
-
-function loadSelect(select, data) {
-    select.innerHTML = `<option value="">Seleccione</option>`;
-    data.forEach(item => {
-        select.innerHTML += `<option value="${item.id}">${item.descripcion}</option>`;
-    });
-}
-
-loadSelect(selects[0], DB.Grupo);
-loadSelect(selects[1], DB.Origen);
-loadSelect(selects[3], DB.Industria);
-loadSelect(selects[4], DB.Medida);
-loadSelect(selects[5], DB.Tipo);
-
-// Estado manual
-selects[5].innerHTML += `<option value="4">Activo</option>`;
-selects[5].innerHTML += `<option value="5">Inactivo</option>`;
-
-
-/* =========================
-   FILTRAR SUBGRUPO
-========================= */
-
-selects[0].addEventListener("change", () => {
-
-    const grupoId = parseInt(selects[0].value);
-
-    const filtrados = DB.SubGrupo.filter(s => s.grupoId === grupoId);
-
-    loadSelect(selects[2], filtrados);
-});
-
-
-/* =========================
-   RENDER TABLA
-========================= */
-
-function renderTabla(filtro="") {
-
-    if (DB.Producto.length === 0) {
-        tbody.innerHTML = `
-        <tr style="height:300px;text-align:center;color:#999;">
-            <td colspan="5">&lt;No data to display&gt;</td>
-        </tr>`;
-        counter.innerText = 0;
-        return;
-    }
-
-    const lista = DB.Producto.filter(p =>
-        p.descripcion.toLowerCase().includes(filtro.toLowerCase())
-    );
-
-    tbody.innerHTML = lista.map(p => {
-
-        const grupo = DB.Grupo.find(g => g.id === p.grupoId);
-        const subgrupo = DB.SubGrupo.find(s => s.id === p.subGrupoId);
-        const tipo = DB.Tipo.find(t => t.id === p.tipoId);
-
-        return `
-            <tr>
-                <td>${p.id}</td>
-                <td>${p.descripcion}</td>
-                <td>${grupo ? grupo.descripcion : ""}</td>
-                <td>${subgrupo ? subgrupo.descripcion : ""}</td>
-                <td>${tipo ? tipo.descripcion : ""}</td>
-            </tr>
-        `;
-    }).join("");
-
-    counter.innerText = lista.length;
-}
-
-renderTabla();
-
-
-/* =========================
-   BUSCADOR
-========================= */
-
-searchInput.addEventListener("input", e => {
-    renderTabla(e.target.value);
-});
-
-
-/* =========================
-   GUARDAR PRODUCTO (✓)
-========================= */
-
-btnGuardar.addEventListener("click", () => {
-
-    if (!inputDescripcion.value) {
-        alert("Ingrese descripción");
-        return;
-    }
-
-    const nuevo = {
-        id: DB.Producto.length + 1,
-        codigo: inputCodigo.value,
-        descripcion: inputDescripcion.value,
-        grupoId: parseInt(selects[0].value),
-        subGrupoId: parseInt(selects[2].value),
-        tipoId: parseInt(selects[5].value)
-    };
-
-    DB.Producto.push(nuevo);
-
-    renderTabla();
-    limpiarFormulario();
-});
-
-
-/* =========================
-   LIMPIAR
-========================= */
-
-function limpiarFormulario() {
-    document.querySelectorAll("input").forEach(i => i.value = "");
-    document.querySelectorAll("select").forEach(s => s.value = "");
-}
-
-
-/* =========================
-   TABS
-========================= */
-
-function switchTab(event, tabName) {
-    document.querySelectorAll('.tab-content')
-        .forEach(c => c.classList.add('hidden'));
-
-    document.querySelectorAll('.tab')
-        .forEach(t => t.classList.remove('active'));
-
-    document.getElementById(tabName).classList.remove('hidden');
-    event.target.classList.add('active');
-}
-
-</script>
-
+    <script src="index.js"></script>
 </body>
+
 </html>

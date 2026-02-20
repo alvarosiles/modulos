@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parametros JSON Modal</title>
+<link rel="stylesheet" href="css/parametros.css">
+</head>
+<body>
+
+<button id="openModal">Abrir Parámetros</button>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="window">
+
+        <div class="title-bar">
+            <span>Parámetros</span>
+            <div class="window-buttons">
+                <button id="closeModal" class="btn-window">×</button>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div style="text-align:center;padding:8px;font-weight:bold;">
+                PARÁMETROS
+            </div>
+
+            <div class="tabs"></div>
+
+            <div class="table-header">
+                <div class="table-header-cell" style="flex:0.5;">ID</div>
+                <div class="table-header-cell">Descripción</div>
+                <div class="table-header-cell" style="flex:0.5;">Extra</div>
+            </div>
+
+            <div class="table-body"></div>
+
+            <div class="footer">
+                <input type="text" class="record-count" value="0">
+                <button id="saveBtn" class="mini-btn">✔</button>
+                <button id="cancelBtn" class="mini-btn">✖</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/index.js"></script>
+</body>
+</html>
