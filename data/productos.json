@@ -1,0 +1,70 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Hamburguesa Clásica",
+      "categoria": "Hamburguesas",
+      "descripcion": "Carne, queso, lechuga y tomate",
+      "imagen": "assets/images/hamburguesa-clasica.png",
+      "precio": 25,
+      "costo": 12,
+      "stockMinimo": 10,
+      "estado": "activo"
+    },
+    {
+      "id": 2,
+      "nombre": "Hamburguesa Doble",
+      "categoria": "Hamburguesas",
+      "descripcion": "Doble carne, doble queso",
+      "imagen": "assets/images/hamburguesa-doble.png",
+      "precio": 32,
+      "costo": 17,
+      "stockMinimo": 10,
+      "estado": "activo"
+    },
+    {
+      "id": 3,
+      "nombre": "Papas Fritas",
+      "categoria": "Complementos",
+      "descripcion": "Porción de papas fritas crocantes",
+      "imagen": "assets/images/papas-fritas.png",
+      "precio": 12,
+      "costo": 4,
+      "stockMinimo": 15,
+      "estado": "activo"
+    },
+    {
+      "id": 4,
+      "nombre": "Gaseosa 500ml",
+      "categoria": "Bebidas",
+      "descripcion": "Bebida gaseosa personal",
+      "imagen": "assets/images/gaseosa.png",
+      "precio": 8,
+      "costo": 3,
+      "stockMinimo": 20,
+      "estado": "activo"
+    },
+    {
+      "id": 5,
+      "nombre": "Combo Familiar",
+      "categoria": "Hamburguesas",
+      "descripcion": "4 hamburguesas + papas + gaseosas",
+      "imagen": "assets/images/combo-familiar.png",
+      "precio": 95,
+      "costo": 48,
+      "stockMinimo": 5,
+      "estado": "activo"
+    },
+    {
+      "id": 6,
+      "nombre": "Copa de Helado",
+      "categoria": "Postres",
+      "descripcion": "Helado de vainilla con salsa de chocolate",
+      "imagen": "assets/images/helado.png",
+      "precio": 15,
+      "costo": 6,
+      "stockMinimo": 10,
+      "estado": "activo"
+    }
+  ]
+}

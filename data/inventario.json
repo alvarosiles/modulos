@@ -1,0 +1,60 @@
+{
+  "inventario": [
+    {
+      "id": 1,
+      "producto": "Carne",
+      "cantidadActual": 40,
+      "unidad": "kg",
+      "stockMinimo": 15,
+      "estado": "disponible"
+    },
+    {
+      "id": 2,
+      "producto": "Pan",
+      "cantidadActual": 8,
+      "unidad": "paquetes",
+      "stockMinimo": 10,
+      "estado": "bajo"
+    },
+    {
+      "id": 3,
+      "producto": "Queso",
+      "cantidadActual": 12,
+      "unidad": "kg",
+      "stockMinimo": 5,
+      "estado": "disponible"
+    },
+    {
+      "id": 4,
+      "producto": "Lechuga",
+      "cantidadActual": 3,
+      "unidad": "kg",
+      "stockMinimo": 4,
+      "estado": "bajo"
+    },
+    {
+      "id": 5,
+      "producto": "Tomate",
+      "cantidadActual": 0,
+      "unidad": "kg",
+      "stockMinimo": 5,
+      "estado": "sin_stock"
+    },
+    {
+      "id": 6,
+      "producto": "Papas",
+      "cantidadActual": 25,
+      "unidad": "kg",
+      "stockMinimo": 10,
+      "estado": "disponible"
+    },
+    {
+      "id": 7,
+      "producto": "Bebidas",
+      "cantidadActual": 60,
+      "unidad": "unidades",
+      "stockMinimo": 20,
+      "estado": "disponible"
+    }
+  ]
+}

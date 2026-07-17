@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-brand">🍽️ Restobar</div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link active">🏠 Dashboard</a>
+        <a href="pages/pos.html" class="nav-link">🛒 Punto de Venta</a>
+        <a href="pages/productos.html" class="nav-link">🍔 Productos</a>
+        <a href="pages/menu.html" class="nav-link">📋 Menú</a>
+        <a href="pages/inventario.html" class="nav-link">📦 Inventario</a>
+        <a href="pages/almacen.html" class="nav-link">🏬 Almacén</a>
+        <a href="pages/proveedores.html" class="nav-link">🚚 Proveedores</a>
+        <a href="pages/clientes.html" class="nav-link">👥 Clientes</a>
+        <a href="pages/ventas.html" class="nav-link">💰 Ventas</a>
+        <a href="pages/reportes.html" class="nav-link">📊 Reportes</a>
+        <a href="pages/configuracion.html" class="nav-link">⚙ Configuración</a>
+      </nav>
+    </aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1>Dashboard</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="cards-grid" id="dashboardCards">
+          <div class="card">
+            <span class="card-label">Ventas del día</span>
+            <span class="card-value" id="ventasDia">Bs 0</span>
+          </div>
+          <div class="card">
+            <span class="card-label">Ventas del mes</span>
+            <span class="card-value" id="ventasMes">Bs 0</span>
+          </div>
+          <div class="card">
+            <span class="card-label">Productos vendidos</span>
+            <span class="card-value" id="productosVendidos">0</span>
+          </div>
+          <div class="card card-warning">
+            <span class="card-label">Productos con bajo stock</span>
+            <span class="card-value" id="stockBajo">0</span>
+          </div>
+          <div class="card">
+            <span class="card-label">Clientes registrados</span>
+            <span class="card-value" id="totalClientes">0</span>
+          </div>
+          <div class="card">
+            <span class="card-label">Proveedores</span>
+            <span class="card-value" id="totalProveedores">0</span>
+          </div>
+          <div class="card card-success">
+            <span class="card-label">Ganancias estimadas</span>
+            <span class="card-value" id="gananciasEstimadas">Bs 0</span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Últimas ventas</h2>
+          <table class="table" id="tablaUltimasVentas">
+            <thead>
+              <tr>
+                <th>N° Venta</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Filas generadas por app.js -->
+            </tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

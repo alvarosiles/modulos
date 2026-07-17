@@ -1,0 +1,37 @@
+{
+  "proveedores": [
+    {
+      "id": 1,
+      "empresa": "Distribuidora La Carreta",
+      "contacto": "Roberto Gómez",
+      "telefono": "68512345",
+      "whatsapp": "68512345",
+      "correo": "ventas@lacarreta.com",
+      "productosSuministrados": ["Carne", "Pan"],
+      "direccion": "Av. Industrial 500",
+      "estado": "activo"
+    },
+    {
+      "id": 2,
+      "empresa": "Verduras del Valle",
+      "contacto": "Ana Quispe",
+      "telefono": "69876543",
+      "whatsapp": "69876543",
+      "correo": "contacto@verdurasdelvalle.com",
+      "productosSuministrados": ["Lechuga", "Tomate", "Papas"],
+      "direccion": "Mercado Central, Puesto 12",
+      "estado": "activo"
+    },
+    {
+      "id": 3,
+      "empresa": "Bebidas del Sur",
+      "contacto": "Luis Mamani",
+      "telefono": "77123456",
+      "whatsapp": "77123456",
+      "correo": "pedidos@bebidasdelsur.com",
+      "productosSuministrados": ["Bebidas"],
+      "direccion": "Zona Sur, Calle 8 #340",
+      "estado": "activo"
+    }
+  ]
+}

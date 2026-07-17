@@ -1,0 +1,49 @@
+{
+  "ventas": [
+    {
+      "id": 1,
+      "numeroVenta": "V-0001",
+      "fecha": "2026-07-15",
+      "clienteId": 1,
+      "cliente": "Juan Pérez",
+      "productos": [
+        { "productoId": 1, "nombre": "Hamburguesa Clásica", "cantidad": 2, "precio": 25 },
+        { "productoId": 3, "nombre": "Papas Fritas", "cantidad": 1, "precio": 12 }
+      ],
+      "descuento": 0,
+      "total": 62,
+      "metodoPago": "efectivo",
+      "estado": "completada"
+    },
+    {
+      "id": 2,
+      "numeroVenta": "V-0002",
+      "fecha": "2026-07-16",
+      "clienteId": 2,
+      "cliente": "María López",
+      "productos": [
+        { "productoId": 5, "nombre": "Combo Familiar", "cantidad": 1, "precio": 95 }
+      ],
+      "descuento": 5,
+      "total": 90,
+      "metodoPago": "tarjeta",
+      "estado": "completada"
+    },
+    {
+      "id": 3,
+      "numeroVenta": "V-0003",
+      "fecha": "2026-07-17",
+      "clienteId": 1,
+      "cliente": "Juan Pérez",
+      "productos": [
+        { "productoId": 2, "nombre": "Hamburguesa Doble", "cantidad": 1, "precio": 32 },
+        { "productoId": 4, "nombre": "Gaseosa 500ml", "cantidad": 2, "precio": 8 },
+        { "productoId": 6, "nombre": "Copa de Helado", "cantidad": 1, "precio": 15 }
+      ],
+      "descuento": 0,
+      "total": 63,
+      "metodoPago": "qr",
+      "estado": "pendiente"
+    }
+  ]
+}
