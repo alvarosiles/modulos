@@ -1,546 +1,112 @@
-# modulos
-https://alvarosiles.github.io/modulos/
+# Restobar
 
+Sistema completo de administración para un restobar: punto de venta (POS), productos, menú, inventario, almacén, proveedores, clientes, ventas y reportes.
 
-Actúa como un desarrollador Senior especializado en sistemas POS, aplicaciones web, HTML5, CSS3, JavaScript ES6, UX/UI y gestión de inventarios.
+Aplicación web estática — sin frameworks ni backend. Los datos de ejemplo viven en `data/*.json` y todos los cambios del usuario se persisten en el `localStorage` del navegador.
 
-Quiero crear una aplicación web llamada **Restobar**.
+URL del proyecto: [restobar.alvarosiles.cloud](https://restobar.alvarosiles.cloud)
 
-URL del proyecto:
+## Características
 
-restobar.alvarosiles.cloud
+- 🏠 **Dashboard** con ventas del día/mes, productos vendidos, alertas de bajo stock, clientes, proveedores y ganancias estimadas.
+- 🛒 **Punto de Venta**: búsqueda y filtro por categoría, carrito, descuento, métodos de pago (efectivo, tarjeta, transferencia, QR) e impresión de ticket.
+- 🍔 **Productos**: alta, edición y baja con precio, costo, categoría y estado.
+- 📋 **Menú**: vista pública de productos activos agrupados por categoría.
+- 📦 **Inventario**: control de ingredientes con alertas automáticas (🟢 disponible, 🟡 bajo, 🔴 sin stock).
+- 🏬 **Almacén**: entradas, salidas y ajustes que actualizan el inventario en tiempo real.
+- 🚚 **Proveedores** y 👥 **Clientes**: gestión de contactos e historial de compras.
+- 💰 **Ventas**: historial con reimpresión de ticket y anulación.
+- 📊 **Reportes**: ventas diarias/mensuales, productos más vendidos, ganancias, inventario y movimientos de almacén.
+- ⚙ **Configuración**: datos del negocio y restablecer los datos de ejemplo.
 
-Objetivo:
+## Instalación
 
-Crear un sistema completo de administración para un restobar que permita gestionar punto de venta (POS), productos, menú, inventario, almacén, proveedores, clientes, ventas y reportes.
+No requiere `npm install` ni build. Solo necesitas servir los archivos estáticos (los módulos usan `fetch` para leer los JSON, por lo que **no funciona abriendo `index.html` directamente con `file://`**).
 
-La aplicación debe funcionar inicialmente como una aplicación web estática utilizando archivos JSON para almacenar datos de ejemplo.
+Opciones para levantar un servidor local:
 
----
+```bash
+# Con Node.js
+npx serve .
 
-# Tecnologías
+# o con Python
+python -m http.server 8080
+```
 
-Utilizar:
+Luego abre `http://localhost:8080` en el navegador.
 
-* HTML5
-* CSS3
-* JavaScript ES6
-* JSON
-* LocalStorage
+## Uso
 
-No utilizar frameworks.
+1. Entra por **Dashboard** para ver el resumen del negocio.
+2. Usa **Punto de Venta** para registrar ventas rápidas.
+3. Administra **Productos**, **Inventario**, **Almacén**, **Proveedores** y **Clientes** desde sus respectivos módulos.
+4. Revisa **Ventas** y **Reportes** para el histórico y las métricas.
+5. Ajusta el nombre del negocio o restablece los datos de ejemplo en **Configuración**.
 
-No utilizar backend.
+## Estructura del proyecto
 
-Código organizado y escalable.
-
----
-
-# Diseño
-
-Crear una interfaz moderna tipo sistema empresarial.
-
-Inspiración:
-
-* Sistemas POS profesionales
-* Restaurantes modernos
-* Dashboards administrativos
-
-Estilo:
-
-Modo oscuro elegante.
-
-Colores:
-
-Fondo:
-#111827
-
-Sidebar:
-#1F2937
-
-Tarjetas:
-#1F2937
-
-Color principal:
-#F97316 (naranja restaurante)
-
-Éxito:
-#10B981
-
-Error:
-#EF4444
-
-Texto:
-#FFFFFF
-
-Diseño responsive:
-
-* Computadora
-* Tablet
-* Móvil
-
----
-
-# Menú lateral
-
-Crear:
-
-🏠 Dashboard
-
-🛒 Punto de Venta
-
-🍔 Productos
-
-📋 Menú
-
-📦 Inventario
-
-🏬 Almacén
-
-🚚 Proveedores
-
-👥 Clientes
-
-💰 Ventas
-
-📊 Reportes
-
-⚙ Configuración
-
----
-
-# Dashboard principal
-
-Mostrar tarjetas:
-
-Ventas del día
-
-Ventas del mes
-
-Productos vendidos
-
-Productos con bajo stock
-
-Clientes registrados
-
-Proveedores
-
-Ganancias estimadas
-
-Últimas ventas
-
----
-
-# Módulo Punto de Venta (POS)
-
-Crear una pantalla de venta rápida.
-
-Debe tener:
-
-Lista de productos.
-
-Categorías:
-
-🍔 Hamburguesas
-
-🍟 Complementos
-
-🥤 Bebidas
-
-🍰 Postres
-
-Buscar productos.
-
-Agregar productos al carrito.
-
-Mostrar:
-
-Producto
-
-Cantidad
-
-Precio
-
-Subtotal
-
-Total
-
-Descuento
-
-Método de pago:
-
-* Efectivo
-* Tarjeta
-* Transferencia
-* QR
-
-Botón:
-
-Finalizar venta
-
----
-
-# Productos
-
-Crear formulario:
-
-Campos:
-
-ID
-
-Nombre del producto
-
-Categoría
-
-Descripción
-
-Imagen
-
-Precio venta
-
-Costo
-
-Stock mínimo
-
-Estado
-
-Activo/Inactivo
-
-Ejemplos:
-
-Hamburguesa clásica
-
-Hamburguesa doble
-
-Papas fritas
-
-Gaseosa
-
-Combo familiar
-
----
-
-# Inventario
-
-Gestionar ingredientes:
-
-Ejemplo:
-
-Carne
-
-Pan
-
-Queso
-
-Lechuga
-
-Tomate
-
-Papas
-
-Bebidas
-
-Campos:
-
-Producto
-
-Cantidad actual
-
-Unidad
-
-Stock mínimo
-
-Estado
-
-Mostrar alertas:
-
-🟢 Stock disponible
-
-🟡 Stock bajo
-
-🔴 Sin stock
-
----
-
-# Almacén
-
-Crear módulo para:
-
-Entradas de productos
-
-Salidas
-
-Ajustes
-
-Movimientos
-
-Campos:
-
-Fecha
-
-Producto
-
-Cantidad
-
-Tipo movimiento
-
-Responsable
-
-Observación
-
----
-
-# Proveedores
-
-Registrar:
-
-Empresa
-
-Contacto
-
-Teléfono
-
-WhatsApp
-
-Correo
-
-Productos suministrados
-
-Dirección
-
-Estado
-
----
-
-# Clientes
-
-Registrar:
-
-Nombre
-
-Teléfono
-
-Correo
-
-Dirección
-
-Historial de compras
-
----
-
-# Ventas
-
-Crear historial:
-
-Número venta
-
-Fecha
-
-Cliente
-
-Productos
-
-Total
-
-Método pago
-
-Estado
-
----
-
-# Reportes
-
-Crear:
-
-Ventas diarias
-
-Ventas mensuales
-
-Productos más vendidos
-
-Ganancias
-
-Inventario actual
-
-Movimientos de almacén
-
----
-
-# Archivos JSON
-
-Crear carpeta:
-
-data/
-
-Archivos:
-
-productos.json
-
-inventario.json
-
-ventas.json
-
-clientes.json
-
-proveedores.json
-
-Ejemplo productos.json:
-
-{
-"productos":[
-{
-"id":1,
-"nombre":"Hamburguesa Clásica",
-"categoria":"Hamburguesa",
-"precio":25,
-"costo":12,
-"stock":50,
-"imagen":"assets/productos/hamburguesa.png",
-"estado":"activo"
-}
-]
-}
-
----
-
-# Estructura del proyecto
-
-Crear:
-
+```
 restobar/
-
-│
 ├── index.html
 ├── style.css
 ├── app.js
-│
 ├── pages/
 │   ├── pos.html
 │   ├── productos.html
+│   ├── menu.html
 │   ├── inventario.html
 │   ├── almacen.html
-│   ├── ventas.html
+│   ├── proveedores.html
 │   ├── clientes.html
-│   └── reportes.html
-│
+│   ├── ventas.html
+│   ├── reportes.html
+│   └── configuracion.html
 ├── data/
 │   ├── productos.json
 │   ├── inventario.json
+│   ├── movimientos.json
 │   ├── ventas.json
 │   ├── clientes.json
 │   └── proveedores.json
-│
 ├── js/
+│   ├── sidebar.js
+│   ├── utils.js
 │   ├── pos.js
 │   ├── productos.js
+│   ├── menu.js
 │   ├── inventario.js
+│   ├── almacen.js
+│   ├── proveedores.js
+│   ├── clientes.js
 │   ├── ventas.js
-│   └── utils.js
-│
-├── assets/
-│   ├── images/
-│   └── icons/
-│
-├── README.md
-└── LICENSE
-
----
-
-# Funciones
-
-Implementar:
-
-✔ Cargar información desde JSON
-
-✔ Mostrar productos
-
-✔ Crear ventas
-
-✔ Carrito de compra
-
-✔ Cálculo automático de totales
-
-✔ Control de inventario
-
-✔ Alertas de stock
-
-✔ Buscar productos
-
-✔ Filtrar categorías
-
-✔ Guardar configuración en LocalStorage
-
-✔ Diseño preparado para agregar backend después
-
----
-
-# Diseño de impresión
-
-Crear una plantilla de ticket:
-
-```
-RESTOBAR
-
-Fecha:
-Venta:
-
-Producto      Cantidad   Precio
-
-Hamburguesa       2       50
-
-TOTAL: 50
-
-Gracias por su visita
+│   ├── reportes.js
+│   └── configuracion.js
+└── assets/
+    ├── images/
+    └── icons/
 ```
 
----
+## Cómo agregar productos
 
-# Calidad del código
+Ve a **Productos → Nuevo producto** y completa nombre, categoría, precio, costo, stock mínimo y estado. El producto aparece de inmediato en el **Punto de Venta** y en el **Menú** (si está activo).
 
-El código debe ser:
+## Cómo modificar inventario
 
-* Profesional
-* Modular
-* Escalable
-* Comentado
-* Fácil de mantener
+En **Inventario** puedes editar la cantidad actual y el stock mínimo de cada ingrediente; el estado (disponible/bajo/sin stock) se recalcula solo. Para registrar movimientos con trazabilidad (entradas, salidas, ajustes con responsable y observación), usa **Almacén** — ahí sí se actualiza el inventario automáticamente.
 
-Aplicar buenas prácticas de programación.
+## Cómo publicar en hosting
 
----
+Al ser una app 100% estática, puede publicarse en cualquier hosting de archivos estáticos:
 
-# README.md
+- **GitHub Pages**: sube el contenido de este repo a la rama `main`/`gh-pages` y activa Pages en la configuración del repositorio.
+- Cualquier otro hosting estático (Netlify, Vercel, un servidor propio, etc.) también sirve: solo necesita servir estos archivos tal cual.
 
-Crear documentación:
+## Cómo conectar restobar.alvarosiles.cloud
 
-* Descripción
-* Características
-* Instalación
-* Uso
-* Estructura
-* Cómo agregar productos
-* Cómo modificar inventario
-* Cómo publicar en hosting
-* Cómo conectar restobar.alvarosiles.cloud
-
----
-
-# Entrega
-
-Genera el proyecto archivo por archivo.
-
-Orden:
-
-1. Estructura del proyecto
-2. Diseño HTML
-3. CSS completo
-4. JavaScript
-5. Archivos JSON con datos reales de ejemplo
-6. Módulos POS
-7. README.md
-
-Explica cada archivo antes de mostrar el código.
-
-No resumas.
-
-Espera mi confirmación antes de continuar con el siguiente archivo.
+1. En el hosting elegido, configura el dominio personalizado `restobar.alvarosiles.cloud`.
+2. Si usas GitHub Pages, agrega/edita el archivo `CNAME` en la raíz del repo con el contenido:
+   ```
+   restobar.alvarosiles.cloud
+   ```
+3. En tu proveedor de DNS, crea un registro `CNAME` que apunte `restobar.alvarosiles.cloud` hacia el dominio del hosting (por ejemplo `tuusuario.github.io`).
+4. Espera la propagación del DNS y verifica que el certificado HTTPS se emita correctamente.

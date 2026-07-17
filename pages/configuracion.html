@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Configuración</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Configuración</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="panel" style="margin-bottom: 20px; max-width: 520px;">
+          <h2 style="margin-bottom: 16px;">Datos del negocio</h2>
+
+          <form id="formConfiguracion">
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="nombreNegocio">Nombre del negocio</label>
+                <input type="text" id="nombreNegocio">
+              </div>
+              <div class="form-group">
+                <label for="monedaPrefijo">Prefijo de moneda</label>
+                <input type="text" id="monedaPrefijo" placeholder="Bs">
+              </div>
+              <div class="form-group">
+                <label for="porcentajeDescuentoMax">Descuento máximo permitido (%)</label>
+                <input type="number" id="porcentajeDescuentoMax" min="0" max="100">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Guardar configuración</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" style="max-width: 520px;">
+          <h2 style="margin-bottom: 10px;">Datos de ejemplo</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+            Restobar guarda todos los cambios en el almacenamiento local del navegador (LocalStorage).
+            Usa esta opción para descartar tus cambios y volver a los datos de ejemplo originales.
+          </p>
+          <button class="btn btn-danger" id="btnRestablecer">Restablecer datos de ejemplo</button>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("configuracion", "../");</script>
+  <script src="../js/configuracion.js"></script>
+</body>
+</html>

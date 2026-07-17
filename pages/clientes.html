@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Clientes</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Clientes</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <div class="page-header">
+            <h2 id="formTitulo">Nuevo cliente</h2>
+          </div>
+
+          <form id="formCliente">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" required>
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono">
+              </div>
+              <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" id="correo">
+              </div>
+              <div class="form-group full">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn" id="cancelarEdicion" style="display:none;">Cancelar</button>
+              <button type="submit" class="btn btn-primary" id="submitLabel">Guardar cliente</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <input type="text" id="buscarCliente" placeholder="Buscar por nombre...">
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Compras</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tablaClientes"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("clientes", "../");</script>
+  <script src="../js/clientes.js"></script>
+</body>
+</html>

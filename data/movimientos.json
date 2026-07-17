@@ -1,0 +1,31 @@
+{
+  "movimientos": [
+    {
+      "id": 1,
+      "fecha": "2026-07-14",
+      "producto": "Carne",
+      "cantidad": 20,
+      "tipoMovimiento": "entrada",
+      "responsable": "Alvaro Siles",
+      "observacion": "Compra semanal a Distribuidora La Carreta"
+    },
+    {
+      "id": 2,
+      "fecha": "2026-07-15",
+      "producto": "Pan",
+      "cantidad": 5,
+      "tipoMovimiento": "salida",
+      "responsable": "Alvaro Siles",
+      "observacion": "Consumo en preparación de hamburguesas"
+    },
+    {
+      "id": 3,
+      "fecha": "2026-07-16",
+      "producto": "Tomate",
+      "cantidad": 0,
+      "tipoMovimiento": "ajuste",
+      "responsable": "Alvaro Siles",
+      "observacion": "Ajuste tras conteo físico: se encontró en mal estado"
+    }
+  ]
+}

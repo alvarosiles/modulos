@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Proveedores</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Proveedores</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <div class="page-header">
+            <h2 id="formTitulo">Nuevo proveedor</h2>
+          </div>
+
+          <form id="formProveedor">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="empresa">Empresa</label>
+                <input type="text" id="empresa" required>
+              </div>
+              <div class="form-group">
+                <label for="contacto">Contacto</label>
+                <input type="text" id="contacto" required>
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono">
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp</label>
+                <input type="text" id="whatsapp">
+              </div>
+              <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" id="correo">
+              </div>
+              <div class="form-group">
+                <label for="productosSuministrados">Productos suministrados</label>
+                <input type="text" id="productosSuministrados" placeholder="separados por coma">
+              </div>
+              <div class="form-group">
+                <label for="estado">Estado</label>
+                <select id="estado">
+                  <option value="activo">Activo</option>
+                  <option value="inactivo">Inactivo</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn" id="cancelarEdicion" style="display:none;">Cancelar</button>
+              <button type="submit" class="btn btn-primary" id="submitLabel">Guardar proveedor</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <input type="text" id="buscarProveedor" placeholder="Buscar por empresa o contacto...">
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Contacto</th>
+                <th>Teléfono</th>
+                <th>Productos</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tablaProveedores"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("proveedores", "../");</script>
+  <script src="../js/proveedores.js"></script>
+</body>
+</html>

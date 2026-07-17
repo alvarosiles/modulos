@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Ventas</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Ventas</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="panel">
+          <div class="toolbar">
+            <input type="text" id="buscarVenta" placeholder="Buscar por N° de venta o cliente...">
+            <select id="filtroEstado">
+              <option value="">Todos los estados</option>
+              <option value="completada">Completada</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="anulada">Anulada</option>
+            </select>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>N° Venta</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Método pago</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tablaVentas"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Plantilla de ticket para reimpresión -->
+  <div class="ticket" id="ticket">
+    <p style="text-align:center; font-weight:bold;">RESTOBAR</p>
+    <p style="text-align:center;">--------------------------------</p>
+    <div class="ticket-line"><span>Fecha:</span><span id="ticketFecha"></span></div>
+    <div class="ticket-line"><span>Venta:</span><span id="ticketNumero"></span></div>
+    <p style="text-align:center;">--------------------------------</p>
+    <div id="ticketItems"></div>
+    <p style="text-align:center;">--------------------------------</p>
+    <div class="ticket-line" style="font-weight:bold;"><span>TOTAL:</span><span id="ticketTotal"></span></div>
+    <p style="text-align:center; margin-top:10px;">Gracias por su visita</p>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("ventas", "../");</script>
+  <script src="../js/ventas.js"></script>
+</body>
+</html>

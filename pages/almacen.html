@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Almacén</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Almacén</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <div class="page-header">
+            <h2>Registrar movimiento</h2>
+          </div>
+
+          <form id="formMovimiento">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" required>
+              </div>
+              <div class="form-group">
+                <label for="producto">Producto</label>
+                <select id="producto" required></select>
+              </div>
+              <div class="form-group">
+                <label for="tipoMovimiento">Tipo de movimiento</label>
+                <select id="tipoMovimiento" required>
+                  <option value="entrada">Entrada</option>
+                  <option value="salida">Salida</option>
+                  <option value="ajuste">Ajuste (nueva cantidad)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" min="0" step="0.5" required>
+              </div>
+              <div class="form-group">
+                <label for="responsable">Responsable</label>
+                <input type="text" id="responsable" required>
+              </div>
+              <div class="form-group full">
+                <label for="observacion">Observación</label>
+                <textarea id="observacion" rows="2"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Registrar movimiento</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="toolbar">
+            <select id="filtroTipo">
+              <option value="">Todos los movimientos</option>
+              <option value="entrada">Entradas</option>
+              <option value="salida">Salidas</option>
+              <option value="ajuste">Ajustes</option>
+            </select>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Tipo</th>
+                <th>Responsable</th>
+                <th>Observación</th>
+              </tr>
+            </thead>
+            <tbody id="tablaMovimientos"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("almacen", "../");</script>
+  <script src="../js/almacen.js"></script>
+</body>
+</html>

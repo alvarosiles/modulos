@@ -51,15 +51,14 @@ async function cargarColeccion(clave, rutaJSON) {
   return lista;
 }
 
-/** Activa el toggle del sidebar en vistas móviles. */
+/** Activa el toggle del sidebar en vistas móviles (llamado desde renderSidebar). */
 function iniciarMenuMovil() {
   const boton = document.getElementById("menuToggle");
   const sidebar = document.querySelector(".sidebar");
-  if (!boton || !sidebar) return;
+  if (!boton || !sidebar || boton.dataset.bound) return;
 
+  boton.dataset.bound = "true";
   boton.addEventListener("click", () => {
     sidebar.classList.toggle("open");
   });
 }
-
-document.addEventListener("DOMContentLoaded", iniciarMenuMovil);

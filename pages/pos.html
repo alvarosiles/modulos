@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Punto de Venta</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Punto de Venta</h1>
+      </header>
+
+      <main class="content">
+
+        <div class="pos-layout">
+
+          <section>
+            <div class="toolbar">
+              <input type="text" id="buscarProducto" placeholder="Buscar productos...">
+            </div>
+
+            <div class="category-tabs" id="categoryTabs"></div>
+
+            <div class="product-grid" id="productGrid"></div>
+          </section>
+
+          <aside class="cart-panel">
+            <h2>Carrito</h2>
+
+            <div class="cart-items" id="cartItems">
+              <p class="empty-state" id="cartVacio">El carrito está vacío</p>
+            </div>
+
+            <div class="form-group">
+              <label for="clienteSelect">Cliente</label>
+              <select id="clienteSelect">
+                <option value="">Cliente general</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="descuentoInput">Descuento (Bs)</label>
+              <input type="number" id="descuentoInput" min="0" value="0">
+            </div>
+
+            <div class="cart-summary-row">
+              <span>Subtotal</span>
+              <span id="cartSubtotal">Bs 0.00</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Descuento</span>
+              <span id="cartDescuento">Bs 0.00</span>
+            </div>
+            <div class="cart-summary-row total">
+              <span>Total</span>
+              <span id="cartTotal">Bs 0.00</span>
+            </div>
+
+            <p class="form-group" style="margin-top: 14px;">
+              <label>Método de pago</label>
+            </p>
+            <div class="payment-methods" id="metodoPago">
+              <label><input type="radio" name="metodoPago" value="efectivo" checked><span>Efectivo</span></label>
+              <label><input type="radio" name="metodoPago" value="tarjeta"><span>Tarjeta</span></label>
+              <label><input type="radio" name="metodoPago" value="transferencia"><span>Transferencia</span></label>
+              <label><input type="radio" name="metodoPago" value="qr"><span>QR</span></label>
+            </div>
+
+            <div class="form-actions" style="justify-content: stretch; margin-top: 10px;">
+              <button class="btn btn-primary" id="finalizarVenta" style="width: 100%; justify-content: center;">Finalizar venta</button>
+            </div>
+          </aside>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Plantilla de ticket, solo visible al imprimir -->
+  <div class="ticket" id="ticket">
+    <p style="text-align:center; font-weight:bold;">RESTOBAR</p>
+    <p style="text-align:center;">--------------------------------</p>
+    <div class="ticket-line"><span>Fecha:</span><span id="ticketFecha"></span></div>
+    <div class="ticket-line"><span>Venta:</span><span id="ticketNumero"></span></div>
+    <p style="text-align:center;">--------------------------------</p>
+    <div id="ticketItems"></div>
+    <p style="text-align:center;">--------------------------------</p>
+    <div class="ticket-line" style="font-weight:bold;"><span>TOTAL:</span><span id="ticketTotal"></span></div>
+    <p style="text-align:center; margin-top:10px;">Gracias por su visita</p>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("pos", "../");</script>
+  <script src="../js/pos.js"></script>
+</body>
+</html>

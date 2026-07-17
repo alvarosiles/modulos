@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restobar | Reportes</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 id="pageTitle">Reportes</h1>
+      </header>
+
+      <main class="content">
+
+        <section class="cards-grid" style="margin-bottom: 20px;">
+          <div class="card">
+            <span class="card-label">Ventas totales</span>
+            <span class="card-value" id="totalVentasGeneral">Bs 0</span>
+          </div>
+          <div class="card card-success">
+            <span class="card-label">Ganancias estimadas</span>
+            <span class="card-value" id="totalGanancias">Bs 0</span>
+          </div>
+          <div class="card card-warning">
+            <span class="card-label">Productos con bajo stock</span>
+            <span class="card-value" id="totalBajoStock">0</span>
+          </div>
+        </section>
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <h2>Ventas diarias (últimos 7 días)</h2>
+          <div class="bar-chart" id="chartVentasDiarias"></div>
+        </section>
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <h2>Ventas mensuales</h2>
+          <div class="bar-chart" id="chartVentasMensuales"></div>
+        </section>
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <h2>Productos más vendidos</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Unidades vendidas</th>
+                <th>Total generado</th>
+              </tr>
+            </thead>
+            <tbody id="tablaMasVendidos"></tbody>
+          </table>
+        </section>
+
+        <section class="panel" style="margin-bottom: 20px;">
+          <h2>Inventario actual</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Unidad</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tablaInventarioActual"></tbody>
+          </table>
+        </section>
+
+        <section class="panel">
+          <h2>Movimientos de almacén</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Tipo</th>
+                <th>Responsable</th>
+              </tr>
+            </thead>
+            <tbody id="tablaMovimientosReporte"></tbody>
+          </table>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>renderSidebar("reportes", "../");</script>
+  <script src="../js/reportes.js"></script>
+</body>
+</html>
